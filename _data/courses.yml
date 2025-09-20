@@ -1,0 +1,85 @@
+# _data/courses.yml
+dock_kub_esp: # MODIFICAR AQUI Y TODO
+  title: "Introducción a Docker y Kubernetes"
+  intro: "Cada laboratorio está diseñado para una experiencia práctica. Haz clic para comenzar."
+  labs:
+    - id: lab1
+      title: "Despliegue de una aplicación Node.js simple con Docker"
+      url:  "/capitulo1/lab1/"
+      duration: "60 min"
+      desc: "Domina Docker creando y ejecutando una app de agenda en Node.js con Express y frontend HTML."
+    - id: lab2
+      title: "Operaciones esenciales con contenedores Docker"
+      url:  "/capitulo2/lab2/"
+      duration: "60 min"
+      desc: "Domina las operaciones básicas en Docker: crear, ejecutar, gestionar e inspeccionar contenedores fácilmente."
+    - id: lab3
+      title: "Construcción de una imagen Docker multi-etapa"
+      url:  "/capitulo3/lab3/"
+      duration: "60 min"
+      desc: "Explora cómo reducir el tamaño de tus imágenes Docker usando multi-stage builds en una app Node.js."
+    - id: lab4
+      title: "Persistencia de datos con volúmenes y bind mounts"
+      url:  "/capitulo4/lab4/"
+      duration: "60 min"
+      desc: "Domina volúmenes y bind mounts en Docker: asegura que tus datos persistan en una agenda con SQLite."
+    - id: lab5
+      title: "Redes y comunicación entre contenedores"
+      url:  "/capitulo5/lab5/"
+      duration: "60 min"
+      desc: "Explora redes personalizadas en Docker creando una app multi-servicio con Node.js, PostgreSQL y Nginx."
+    - id: lab6
+      title: "Orquestación de servicios con Docker Compose"
+      url:  "/capitulo6/lab6/"
+      duration: "60 min"
+      desc: "Aprende a orquestar servicios con Docker Compose usando un stack Nginx, Node.js y PostgreSQL."
+    - id: lab7
+      title: "Despliegue de servicios en Docker Swarm"
+      url:  "/capitulo7/lab7/"
+      duration: "60 min"
+      desc: "Despliega un servicio en Docker Swarm con réplicas, secrets y actualizaciones controladas."
+    - id: lab8
+      title: "Despliegue de una aplicación Node.js en Kubernetes"
+      url:  "/capitulo8/lab8/"
+      duration: "60 min"
+      desc: "Despliega en Minikube una app Node.js con Socket.IO creando imagen, ConfigMap, Deployment y Service."
+    - id: lab9
+      title: "Gestión de namespaces y despliegue de recursos"
+      url:  "/capitulo9/lab9/"
+      duration: "90 min"
+      desc: "Gestiona namespaces en Kubernetes con aislamiento, cuotas y RBAC, desplegando apps en dev y prod."
+    - id: lab10
+      title: "Uso de ConfigMaps, Secrets y controladores con despliegue de una app"
+      url:  "/capitulo10/lab10/"
+      duration: "60 min"
+      desc: "Aplica ConfigMaps, Secrets y controladores de Kubernetes para desplegar y validar una app Node.js."
+    - id: lab11
+      title: "Creación de roles, usuarios y permisos con RBAC"
+      url:  "/capitulo11/lab11/"
+      duration: "60 min"
+      desc: "Configura RBAC en Kubernetes creando roles, bindings y un ClusterRole de solo lectura."
+    - id: lab12
+      title: "Despliegue con almacenamiento persistente usando PVC"
+      url:  "/capitulo12/lab12/"
+      duration: "60 min"
+      desc: "Explora almacenamiento persistente en Kubernetes desplegando la Agenda de Contactos con PVC en Minikube."
+    - id: lab13
+      title: "Exponer una aplicación con ClusterIP y DNS interno"
+      url:  "/capitulo13/lab13/"
+      duration: "60 min"
+      desc: "Explora servicios ClusterIP: resuelve por DNS, prueba la API Node.js desde Pods y confirma bloqueo externo."
+    - id: lab14
+      title: "Despliegue de aplicación con Ingress en Kubernetes"
+      url:  "/capitulo14/lab14/"
+      duration: "60 min"
+      desc: "Explora path-based routing con NGINX Ingress: crea Deployments y Services, habilita addon y valida por Host."
+    - id: lab15
+      title: "Afinidad y tolerancia de Pods"
+      url:  "/capitulo15/lab15/"
+      duration: "60 min"
+      desc: "Levanta Minikube multinodo y aplica nodeAffinity, podAntiAffinity y tolerations en Pods y Deployments."
+    - id: lab16
+      title: "Instalar Metrics Server y visualizar métricas"
+      url:  "/capitulo16/lab16/"
+      duration: "60 min"
+      desc: "Instala Metrics Server, consulta kubectl top y genera carga para observar métricas y escalado manual."

@@ -1,0 +1,161 @@
+lab1:
+  results:
+    - "**Resultado esperado:** Estructura de carpetas creada y lista para comenzar el desarrollo."
+    - "**Resultado esperado:** Backend funcionando y respondiendo a solicitudes GET y POST."
+    - "**Resultado esperado:** Formulario funcional que muestra la lista de contactos con funcionalidades CRUD"
+    - "**Resultado esperado:** La aplicación (frontend + backend) corre en un contenedor y es accesible vía `http://localhost:3000/`."
+lab2:
+  results:
+    - "**Resultado esperado:** Carpeta creada y lista con archivo `README.md`."
+    - "**Resultado esperado:** Contenedor ejecutado correcamente con el mensaje `Hello from Docker!`."
+    - "**Resultado esperado:** El contenedor corre Ubuntu y se detiene correctamente al salir."
+    - "**Resultado esperado:** Estos comandos equivalen a 'monitorear' el estado de aplicaciones en un servidor real. Listado e inspección correcta de contenedores."
+    - "**Resultado esperado:** La administración correcta de contenedores evita acumulación de procesos y libera recursos. El ciclo de vida completo de un contenedor gestionado exitosamente."
+    - "**Resultado esperado:** La administración y limpieza de imagenes es importante para no generar confusión en las implementaciones"
+    - "**Resultado esperado:** Lograste crear y gestionar un contenedor, inspeccionaste sus procesos y liberaste espacio eliminando recursos no utilizados."
+    - "**Resultado esperado:** Generaste un `README.md` con la lista de comandos Docker usados, dejando una referencia clara y organizada."
+lab3:
+  results:
+    - "**Resultado esperado:** Entorno de trabajo listo para comenzar la creacion de archivos."
+    - "**Resultado esperado:** Carpeta de backend integrada correctamente en el nuevo directorio"
+    - "**Resultado esperado:** Carpeta de frontend integrada correctamente en el nuevo directorio"
+    - "**Resultado esperado:** Imagen funcional pero de mayor tamaño."
+    - "**Resultado esperado:** La etapa de construcción prepara dependencias y archivos, y la final contiene solo lo necesario para ejecutar. Imagen más ligera que la versión tradicional."
+    - "**Resultado esperado:** Validación del beneficio del multi-stage build."
+    - "**Resultado Esperado:** Lograste optimizar la construcción de imágenes Docker, reduciendo su tamaño al ignorar directorios y archivos no requeridos."
+    - "**Resultado esperado:** Construiste la imagen contactos-slim, reduciendo aún más el tamaño y manteniendo solo los archivos esenciales para ejecución."
+    - "**Resultado esperado:** Entorno limpio y listo para la siguiente práctica."
+lab4:
+  results:
+    - "**Resultado esperado:** Proyecto base organizado con carpetas para **código** y **datos**."
+    - "**Resultado esperado:** API funcional con SQLite lista para contenerizarse."
+    - "**Resultado esperado:** Interfaz funcional con altas y bajas contra la API."
+    - "**Resultado esperado:** Imagen disponible y lista para ejecutar."
+    - "**Resultado esperado:** Los Datos persisten usando `agenda_data` aunque se remueva el contenedor."
+    - "**Resultado esperado:** Flujo de desarrollo ágil con cambios inmediatos y datos persistentes en el host."
+    - "**Resultado esperado:** Entorno limpio y listo para la siguiente práctica."
+lab5:
+  results:
+    - "**Resultado esperado:** Proyecto base listo para implementar API, proxy y DB."
+    - "**Resultado esperado:** Script listo para crear BD/tables/datos iniciales."
+    - "**Resultado esperado:** API lista para construir imagen y comunicarse con la BD por **DNS interno** (`db`)."
+    - "**Resultado esperado:** Imagen `api-agenda` construida correctamente."
+    - "**Resultado esperado:** Base de datos levantada y red backend activa."
+    - "**Resultado esperado:** API comunicándose con Postgres vía **DNS interno** y misma red."
+    - "**Resultado esperado:** Tráfico externo hacia Nginx, hacia API (backend) finalmente Postgres."
+    - "**Resultado esperado:** Entendimiento del **aislamiento** entre redes y del **DNS interno** de Docker."
+    - "**Resultado esperado:** Entorno limpio y listo para la siguiente práctica."
+lab6:
+  results:
+    - "**Resultado esperado:** Proyecto base listo para incorporar código y configuración."
+    - "**Resultado esperado:** API lista para contenerización y orquestación."
+    - "**Resultado esperado:** Script listo para inicializar contenido de la BD."
+    - "**Resultado esperado:** Proxy listo para enrutar."
+    - "**Resultado esperado:** Dockerfile listo para build."
+    - "**Resultado esperado:** Compose listo para levantar el stack."
+    - "**Resultado esperado:** Stack operativo y accesible desde el navegador"
+    - "**Resultado esperado:** API escalada mediante docker compose."
+    - "**Resultado esperado:** Entorno limpio y listo para la siguiente práctica."
+lab7:
+  results:
+    - "**Resultado esperado:** Estructura creada y lista para cargar el contenido a los archivos."
+    - "**Resultado esperado:** App y secret listos para construir imagen y desplegar."
+    - "**Resultado esperado:** Dockerfile listo para construir imagen con healthcheck."
+    - "**Resultado esperado:** Imagen `swarm-web` lista en tu host para ser usada."
+    - "**Resultado esperado:** Swarm activo y red overlay `appnet` creada."
+    - "**Resultado esperado:** Servicio `web` en marcha, accesible por `localhost:8080` y por `web:3000` desde la `appnet`."
+    - "**Resultado esperado:** Servicio actualizado gradualmente a `1.1` sin downtime perceptible."
+    - "**Resultado esperado:** 5 tareas `Running` y respuestas alternando `host` entre más réplicas."
+    - "**Resultado esperado:** Entender el estado y la configuración del servicio, y consultar logs de ejecución."
+    - "**Resultado esperado:** Host sin Swarm activo ni artefactos de la práctica."
+lab8:
+  results:
+    - "**Resultado esperado:** Estructura de directorios creada y lista para implementar el código de UI + API."
+    - "**Resultado esperado:** UI funcional localmente (contador incrementa y sincroniza entre pestañas del mismo servidor)."
+    - "**Resultado esperado:** Imagen lista en el entorno de Minikube."
+    - "**Resultado esperado:** ConfigMap creado con clave `APP_TITLE`."
+    - "**Resultado esperado:** Pods en estado `Running` y `Ready` con 1/1 disponibles."
+    - "**Resultado esperado:** UI accesible en **Minikube** mostrando el título del ConfigMap y el contador en tiempo real."
+    - "**Resultado esperado:** Cluster limpio y listo para la siguiente práctica."
+lab9:
+  results:
+    - "**Resultado esperado:** Estructura lista para implementar app + manifiestos por entorno."
+    - "**Resultado esperado:** Archivos de la aplicación correctamente definidos."
+    - "**Resultado esperado:** Imagen `<tu_usuario>/ns-demo` disponible públicamente."
+    - "**Resultado esperado:** Namespaces con **cuotas, límites** aplicadas."
+    - "**Resultado esperado:** SA, Role y RoleBinding creados por namespace."
+    - "**Resultado esperado:** Manifiestos genéricos listos para aplicar por entorno."
+    - "**Resultado esperado:** App desplegada y accesible en `dev` pero restringida en `prod`"
+    - "**Resultado esperado:** Cluster limpio y listo para la siguiente práctica."
+lab10:
+  results:
+    - "**Resultado esperado:** Estructura creada y lista para implementar la app y los manifiestos."
+    - "**Resultado esperado:** App lista para la contenerización."
+    - "**Resultado esperado:** Imagen compilada y disponible en el repositorio remoto lista para ser usada en el cluster de minikube."
+    - "**Resultado esperado:** ConfigMap y Secret creados."
+    - "**Resultado esperado:** Pods `Running/Ready`, con configmap y secrets configurados."
+    - "**Resultado esperado:** Acceso a la app desde navegador desde el service expuesto."
+    - "**Resultado esperado:** Job en `Completed` y logs con `OK`."
+    - "**Resultado esperado:** Tareas periódicas creando Jobs que registran el tamaño del token."
+    - "**Resultado esperado:** La app refleja el nuevo `appName` y `featureFlag` actualizado."
+    - "**Resultado esperado:** Cluster limpio y listo para la siguiente práctica."
+lab11:
+  results:
+    - "**Resultado esperado:** Carpeta con manifiestos vacíos lista para agregar el codigo."
+    - "**Resultado esperado:** Namespace y ServiceAccount creados correctamente."
+    - "**Resultado esperado:** Role creado con permisos restringidos a Pods."
+    - "**Resultado esperado:** ServiceAccount `lector-pods` vinculado al Role `rol-lector-pods`."
+    - "**Resultado esperado:** El usuario `lector-pods` puede listar pero no crear recursos."
+    - "**Resultado esperado:** El usuario SA puede listar ConfigMaps, pero no modificarlos."
+    - "**Resultado esperado:** El ServiceAccount realmente no puede escalar el Deployment pero si puede obtener datos."
+    - "**Resultado esperado:** El usuario puede leer Pods, Services y ConfigMaps en todos los Namespaces."
+    - "**Resultado esperado:** No quedan recursos de la práctica ni kubeconfigs temporales."
+lab12:
+  results:
+    - "**Resultado esperado:** Estructura creada y lista para implementar."
+    - "**Resultado esperado:** App lista para contenerizar y montar PVC."
+    - "**Resultado esperado:** Imagen compilada y disponible en el repositorio remoto lista para ser usada en el cluster de minikube."
+    - "**Resultado esperado:** Namespace creado y PVC ligado a un PV (`Bound`)."
+    - "**Resultado esperado:** Pod saludable y con volumen `/data` montado correctamente."
+    - "**Resultado esperado:** Acceso externo OK y **persistencia verificada** tras reinicio exitosa."
+    - "**Resultado esperado:** Nueva versión corriendo y **datos preservados**."
+    - "**Resultado esperado:** Cluster limpio y listo para la siguiente práctica."
+lab13:
+  results:
+    - "**Resultado esperado:** Carpeta del proyecto creada, y listo para trabajar con los archivos."
+    - "**Resultado esperado:** Aplicación lista y definida que devolvera un JSON al consultar `/hello`."
+    - "**Resultado esperado:** Imagen `clusterip-app:1.0` disponible en el daemon de Minikube."
+    - "**Resultado esperado:** Deployment arriba con 2 Pods `Running` y Service `clusterip-app-svc` creado sin exposición externa."
+    - "**Resultado esperado:** Respuestas HTTP válidas desde `/hello` y resolución de nombres correcta vía `nslookup`."
+    - "**Resultado esperado:** En `pruebas-dns`, el nombre corto falla, FQDN resuelve y `/hello` responde correctamente."
+    - "**Resultado esperado:** No hay forma directa de acceder desde el host; sólo desde Pods dentro del clúster."
+    - "**Resultado esperado:** No quedan Pods/Services/Deployments del laboratorio."
+lab14:
+  results:
+    - "**Resultado esperado:** Árbol de carpetas creado, visible y listo para agregar los contenidos respectivos."
+    - "**Resultado esperado:** Ambas apps responden localmente."
+    - "**Resultado esperado:** Imágenes locales listas para ser usadas por minikube"
+    - "**Resultado esperado:** Deployments y Services en `Running` y listados por `kubectl get`."
+    - "**Resultado esperado:** NGINX Ingress Controller en ejecución (Pods `Running`)."
+    - "**Resultado esperado:** El Ingress enruta correctamente `/app1` y `/app2` a su backend."
+    - "**Resultado esperado:** Rolling update de `app1` OK y enrutamiento intacto para ambas rutas."
+    - "**Resultado esperado:** Limpiar recursos evita gastos y confusiones en siguientes prácticas. Clúster limpio y sin reglas de Ingress activas."
+lab15:
+  results:
+    - "**Resultado esperado:** Clúster de 3 nodos creado y funcionando correctamente."
+    - "**Resultado esperado:** Carpeta k8s creada con todos los archivos listos para las siguientes tareas."
+    - "**Resultado esperado:** Basado en los conceptos de afinidad el pod se ejecuto correctamente dentro del nodo etiquetado."
+    - "**Resultado esperado:** Los Pods con etiqueta `app=demo` no se ejecutan en el mismo nodo."
+    - "**Resultado esperado:** El `pod-tolerancia` corre en el nodo taintado (multinodo-m03). Otros Pods sin tolerancia no pueden programarse en ese nodo."
+    - "**Resultado esperado:** El Deployment combina **afinidad de Pods** y **tolerancia a taints**, permitiendo balancear entre nodos y usar nodos dedicados. Tres Pods corriendo, distribuidos según afinidad y tolerancia."
+    - "**Resultado esperado:** El entorno queda limpio, sin Pods ni configuraciones extra."
+lab16:
+  results:
+    - "**Resultado esperado:** Clúster de 3 nodos creado y funcionando correctamente."
+    - "**Resultado esperado:** Directorio listo para comenzar a desarrollar la practica."
+    - "**Resultado esperado:** Metrics Server instalado y en estado `Running`."
+    - "**Resultado esperado:** Verás columnas de **CPU(cores)** y **MEMORY(bytes)** tanto en nodos como en Pods."
+    - "**Resultado esperado:** 3 Pods de carga Running y, preferiblemente, distribuidos entre nodos."
+    - "**Resultado esperado:** Los Pods `stress-test` muestran consumo de CPU/memoria y los nodos presentan incremento."
+    - "**Resultado esperado:** Carga temporal ejecutada en el cluster con 6 Pods stress-test en Running y consumo repartido en kubectl top."
+    - "**Resultado esperado:** Clúster limpio y listo para próximas prácticas."
