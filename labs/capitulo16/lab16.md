@@ -1,6 +1,6 @@
 ---
 layout: lab
-title: "Práctica 16: Instalar Metrics Server y visualizar métricas"
+title: "Práctica 16: Observabilidad de kubernetes"
 permalink: /capitulo16/lab16/
 images_base: /labs/capitulo16/img
 duration: "60 minutos"

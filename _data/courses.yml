@@ -79,7 +79,7 @@ dock_kub_esp: # MODIFICAR AQUI Y TODO
       duration: "60 min"
       desc: "Levanta Minikube multinodo y aplica nodeAffinity, podAntiAffinity y tolerations en Pods y Deployments."
     - id: lab16
-      title: "Instalar Metrics Server y visualizar métricas"
+      title: "Observabilidad de kubernetes"
       url:  "/capitulo16/lab16/"
       duration: "60 min"
       desc: "Instala Metrics Server, consulta kubectl top y genera carga para observar métricas y escalado manual."
