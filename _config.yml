@@ -3,10 +3,10 @@ description: Plataforma de Laboratorios · Introducción a Docker y Kubernetes
 
 # Para project site:
 url: "https://netec-mx.github.io" # CAMBIAR LA CUENTA
-baseurl: "/DOCK_KUB_ESP"   # CLAVE para que no se rompan rutas siempre cambiar
+baseurl: "/Custom_NETEC_DOCK_KUB_ESP"   # CLAVE para que no se rompan rutas siempre cambiar
 
 # Nombre completo del repo (owner/repo)
-repository: netec-mx/DOCK_KUB_ESP
+repository: netec-mx/Custom_NETEC_DOCK_KUB_ESP
 
 # Para local Recuerda ajustar rutas en los archivos
 # url: "http://localhost:4000"

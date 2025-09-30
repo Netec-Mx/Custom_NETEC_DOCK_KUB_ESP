@@ -8,17 +8,17 @@ Parámetros (usa page.* o include.*):
 {% endcomment %}
 
 <div class="lab-summary">
-  <h2>¡Felicidades, has completado el Laboratorio {{ include.lab_number | default: page.lab_number }}!</h2>
+  <h2>¡Felicidades! Has completado el Laboratorio {{ include.lab_number | default: page.lab_number }}.</h2>
 
   {% assign _final = include.final_result | default: page.final_result %}
   {% if _final %}
-    <h3>Resultado Final</h3>
+    <h3>Resultado final</h3>
     <p>{{ _final | markdownify }}</p>
   {% endif %}
 
   {% assign _notes = include.notes | default: page.notes %}
   {% if _notes and _notes.size > 0 %}
-    <h3>Notas y/o Consideraciones</h3>
+    <h3>Notas y consideraciones</h3>
     <ul>
       {% for n in _notes %}
         {% assign item = n | markdownify | strip %}
@@ -32,7 +32,7 @@ Parámetros (usa page.* o include.*):
 
   {% assign _refs = include.references | default: page.references %}
   {% if _refs and _refs.size > 0 %}
-    <h3>URLs de referencia</h3>
+    <h3>URL de referencia</h3>
     <ul>
       {% for r in _refs %}
         {% if r.url and r.text %}

@@ -1,6 +1,6 @@
 # _data/courses.yml
 dock_kub_esp: # MODIFICAR AQUI Y TODO
-  title: "Introducción a Docker y Kubernetes"
+  title: "Docker y Kubernetes"
   intro: "Cada laboratorio está diseñado para una experiencia práctica. Haz clic para comenzar."
   labs:
     - id: lab1
