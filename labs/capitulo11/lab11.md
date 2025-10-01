@@ -49,15 +49,15 @@ next: /capitulo12/lab12/
 
 ### Tarea 1. Crear estructura del proyecto
 
-Organizarás los manifiestos YAML de RBAC en una carpeta dedicada.
+Organizar los manifiestos YAML de RBAC en una carpeta dedicada.
 
 #### Tarea 1.1
 
 - **Paso 1.** Inicia sesión en tu máquina de trabajo como usuario con permisos administrativos.  
 
-- **Paso 2.** Abre el **`Visual Studio Code`** lo puedes encontrar en el **Escritorio** del ambiente o puedes buscarlo en las aplicaciones de Windows.
+- **Paso 2.** Abre el **`Visual Studio Code`**, lo puedes encontrar en el **Escritorio** del ambiente o puedes buscarlo en las aplicaciones de Windows.
 
-- **Paso 3.** Una vez abierto **VS Code** da clic en el icono de la imagen para abrir la terminal, se encuentra en la parte superior derecha.
+- **Paso 3.** Una vez abierto **VS Code**, da clic en el icono de la imagen para abrir la terminal, se encuentra en la parte superior derecha.
 
   ![micint]({{ page.images_base | relative_url }}/1.png)
 
@@ -65,7 +65,7 @@ Organizarás los manifiestos YAML de RBAC en una carpeta dedicada.
 
   ![micint]({{ page.images_base | relative_url }}/2.png)
 
-- **Paso 5.** Asegúrate de estar dentro de la carpeta del curso llamada **dockerlabs** en la terminal de **VS Code**:
+- **Paso 5.** Asegúrate de estar dentro de la carpeta del curso llamada **dockerlabs** en la terminal de **VS Code**.
 
   > **Nota.** Si te quedaste en el directorio de una práctica, usa **`cd ..`** para volver a la raíz de laboratorios.
   {: .lab-note .info .compact}
@@ -82,14 +82,14 @@ Organizarás los manifiestos YAML de RBAC en una carpeta dedicada.
   mkdir lab11-k8srbac && cd lab11-k8srbac
   ```
 
-- **Paso 7.** Valida en el **Explorador** de archivos dentro de VS Code que se haya creado el directorio:
+- **Paso 7.** Valida en el **Explorador** de archivos dentro de VS Code que se haya creado el directorio.
 
   > **Nota.** Trabajar en VS Code permite editar y versionar cómodamente. **Git Bash** brinda compatibilidad con comandos POSIX.
   {: .lab-note .info .compact}
 
   ![micint]({{ page.images_base | relative_url }}/4.png)
 
-- **Paso 8.** Esta será la estructura de los directorios de la aplicación:
+- **Paso 8.** Esta será la estructura de los directorios de la aplicación.
 
   ```text
   lab11-k8srbac/
@@ -106,7 +106,7 @@ Organizarás los manifiestos YAML de RBAC en una carpeta dedicada.
 
 - **Paso 9.** Ahora, crea la carpeta **k8s/** y sus archivos vacíos.
 
-  > **Nota.** El comando se ejecuta desde la raíz de la carpeta **lab11-k8srbac**
+  > **Nota.** El comando se ejecuta desde la raíz de la carpeta **lab11-k8srbac**.
   {: .lab-note .info .compact}
 
   ```bash
@@ -136,7 +136,7 @@ Definirás un nuevo Namespace y un ServiceAccount para aislar recursos y usuario
 
 #### Tarea 2.1
 
-- **Paso 11.** Primero asegurate de tener encendido el servidor de **Minikube**, ejecuta el siguiente comando.
+- **Paso 11.** Primero asegúrate de tener encendido el servidor de **Minikube**. Ejecuta el siguiente comando.
 
   > **Nota.** Si ya está encendido, puedes avanzar al siguiente paso.
   {: .lab-note .info .compact}
@@ -163,9 +163,9 @@ Definirás un nuevo Namespace y un ServiceAccount para aislar recursos y usuario
 
   ![micint]({{ page.images_base | relative_url }}/6.png)
 
-- **Paso 14.** Ahora, agrega el siguiente contenido al archivo `k8s/serviceaccount.yaml`:
+- **Paso 14.** Ahora, agrega el siguiente contenido al archivo `k8s/serviceaccount.yaml`.
 
-  > **Nota.** El ServiceAccount será la **`identidad`** dentro del Namespace que usaremos para restringir permisos.
+  > **Nota.** El ServiceAccount será la **`identidad`** dentro del Namespace que usarás para restringir permisos.
   {: .lab-note .info .compact}
 
   ```yaml
@@ -197,7 +197,7 @@ Crearás un Role que solo permita **listar y obtener Pods** dentro del Namespace
 
 #### Tarea 3.1
 
-- **Paso 16.** Abre el archivo `k8s/role.yaml` y agrega la siguiente configuración para el rol:
+- **Paso 16.** Abre el archivo `k8s/role.yaml` y agrega la siguiente configuración para el rol.
 
   > **Nota.** El Role define **qué acciones (verbs)** se permiten sobre **qué recursos** en un Namespace específico.
   {: .lab-note .info .compact}
@@ -223,7 +223,7 @@ Crearás un Role que solo permita **listar y obtener Pods** dentro del Namespace
 
   ![micint]({{ page.images_base | relative_url }}/8.png)
 
-- **Paso 18.** Verifica que los permisos estén aplicados a los pods. Escribe el comando **describe** para ver los detalles.
+- **Paso 18.** Verifica que los permisos estén aplicados a los pods. Escribe el comando **`describe`** para ver los detalles.
 
   ```bash
   kubectl describe role rol-lector-pods -n demo-rbac
@@ -243,7 +243,7 @@ Vincularás el **Role** con el **ServiceAccount** para que tenga los permisos de
 
 #### Tarea 4.1
 
-- **Paso 19.** Ahora, dentro del archivo `k8s/rolebinding.yaml` agrega el siguiente código para crear la relación entre los objetos:
+- **Paso 19.** Ahora, dentro del archivo `k8s/rolebinding.yaml`, agrega el siguiente código para crear la relación entre los objetos.
 
   > **Nota.** El RoleBinding es el **puente** que conecta Roles (`permisos`) con sujetos (`usuarios`, `grupos` o `ServiceAccounts`).
   {: .lab-note .info .compact}
@@ -273,7 +273,7 @@ Vincularás el **Role** con el **ServiceAccount** para que tenga los permisos de
 
   ![micint]({{ page.images_base | relative_url }}/10.png)
 
-- **Paso 21.** Verfica que exista la relación entre los 2 objetos.
+- **Paso 21.** Verifica que exista la relación entre los dos objetos.
 
   ```bash
   kubectl describe rolebinding lector-pods-binding -n demo-rbac
@@ -289,13 +289,13 @@ Vincularás el **Role** con el **ServiceAccount** para que tenga los permisos de
 
 ### Tarea 5. Probar acceso con el ServiceAccount
 
-Validarás que el ServiceAccount puede **listar Pods**, pero no puede crear ni eliminar.
+Validarás que el ServiceAccount puede **listar pods**, pero no puede crear ni eliminarlos.
 
 #### Tarea 5.1
 
-- **Paso 22.** Abre el archivo `k8s/test-pod.yaml` y agrega la siguiente configuración de un pod:
+- **Paso 22.** Abre el archivo `k8s/test-pod.yaml` y agrega la siguiente configuración de un pod.
 
-  > **Nota.** Este **pod** se usará para probar los permisos **RBAC**
+  > **Nota.** Este **pod** se usará para probar los permisos **RBAC**.
   {: .lab-note .info .compact}
 
   ```yaml
@@ -312,7 +312,7 @@ Validarás que el ServiceAccount puede **listar Pods**, pero no puede crear ni e
 
 - **Paso 23.** Ahora, aplica el manifiesto y verifica que se haya creado correctamente.
 
-  > **Nota.** Si el pod no está en **Running** espera unos segundos y vuelve a probar.
+  > **Nota.** Si el pod no está en **Running**, espera unos segundos y vuelve a probar.
   {: .lab-note .info .compact}
 
   ```bash
@@ -324,9 +324,9 @@ Validarás que el ServiceAccount puede **listar Pods**, pero no puede crear ni e
 
 #### Tarea 5.2 Impersonación
 
-- **Paso 24.** Primero comprobamos los permisos **teoricamente**.
+- **Paso 24.** Primero, comprueba los permisos **teóricamente**.
 
-  > **Nota.** El **API server** evalúa la acción como si fueras el SA. Esperado: **list** = `yes`, **create** = `no`.
+  > **Nota.** El **API server** evalúa la acción como si fuera el SA. Esperado: **list** = `yes`, **create** = `no`.
   {: .lab-note .info .compact}
 
   ```bash
@@ -336,15 +336,15 @@ Validarás que el ServiceAccount puede **listar Pods**, pero no puede crear ni e
 
   ![micint]({{ page.images_base | relative_url }}/13.png)
 
-- **Paso 25.** Ahora, prueba la lista (OK) y creación (Forbidden) con impersonación:
+- **Paso 25.** Ahora, prueba la lista (OK) y creación (Forbidden) con impersonación.
 
-  - Debe Listar
+  - Debe listar
 
   ```bash
   kubectl --as=system:serviceaccount:demo-rbac:lector-pods -n demo-rbac get pods
   ```
 
-  - Debe Fallar
+  - Debe fallar
 
   ```bash
   kubectl --as=system:serviceaccount:demo-rbac:lector-pods -n demo-rbac run test-imp --image=nginx
@@ -364,7 +364,7 @@ Configurarás un Role que permita **listar y obtener ConfigMaps**.
 
 #### Tarea 6.1
 
-- **Paso 26.** Ahora, abre el archivo `k8s/role-configmap.yaml` y agrega la siguiente configuración para el rol:
+- **Paso 26.** Ahora, abre el archivo `k8s/role-configmap.yaml` y agrega la siguiente configuración para el rol.
 
   ```yaml
   apiVersion: rbac.authorization.k8s.io/v1
@@ -425,7 +425,7 @@ Configurarás un Role que permita **listar y obtener ConfigMaps**.
   kubectl apply -f k8s/rolebinding-cm.yaml
   ```
 
-- **Paso 32.** Ahora, valida el resultado del acceso al ConfigMap, usando los permisos del SA:
+- **Paso 32.** Ahora, valida el resultado del acceso al ConfigMap, usando los permisos del SA.
 
   ```bash
   kubectl auth can-i get configmaps
@@ -433,9 +433,9 @@ Configurarás un Role que permita **listar y obtener ConfigMaps**.
 
   ![micint]({{ page.images_base | relative_url }}/16.png)
 
-- **Paso 33.** Aplicar el rol y probar el acceso:
+- **Paso 33.** Aplica el rol y prueba el acceso.
 
-  > **Nota.** Controlar acceso a ConfigMaps es útil cuando un equipo solo debe **leer configuraciones** sin modificarlas.
+  > **Nota.** Controlar el acceso a ConfigMaps es útil cuando un equipo solo debe **leer configuraciones** sin modificarlas.
   {: .lab-note .info .compact}
 
 
@@ -453,11 +453,11 @@ Configurarás un Role que permita **listar y obtener ConfigMaps**.
 
 ### Tarea 7. Role extra para Deployments
 
-Crearás un Role que permita **listar y escalar Deployments**.
+Crear un Role que permita **listar y escalar Deployments**.
 
 #### Tarea 7.1
 
-- **Paso 34.** Abre el archivo `k8s/role-deployment.yaml` el permiso para los deployments:
+- **Paso 34.** Abre el archivo `k8s/role-deployment.yaml` el permiso para los deployments.
 
   ```yaml
   apiVersion: rbac.authorization.k8s.io/v1
@@ -512,7 +512,7 @@ Crearás un Role que permita **listar y escalar Deployments**.
 
   ![micint]({{ page.images_base | relative_url }}/19.png)
 
-- **Paso 39.** Ahora, haz la prueba, crea el siguiente deployment para revisar si tienes permiso o no:
+- **Paso 39.** Ahora, haz la prueba. Crea el siguiente deployment para revisar si tienes permiso o no.
 
   ```bash
   kubectl create deployment nginx-deploy --image=nginx -n demo-rbac
@@ -522,7 +522,7 @@ Crearás un Role que permita **listar y escalar Deployments**.
 
 - **Paso 40.** Valida teóricamente que si pueda escalar los pods. Escribe el siguiente comando.
 
-  > **Nota.** El resultado es correcto porque estás comprobando **update** y **kubectl scale** hace una solicitud `PATCH` al subrecurso deployments/scale.
+  > **Nota.** El resultado es correcto porque estás comprobando que **update** y **kubectl scale** hacen una solicitud `PATCH` al subrecurso deployments/scale.
   {: .lab-note .info .compact}
 
   ```bash
@@ -531,7 +531,7 @@ Crearás un Role que permita **listar y escalar Deployments**.
 
   ![micint]({{ page.images_base | relative_url }}/21.png)
 
-- **Paso 41.** Ahora, verifica que realmente **no** podras escalar el deployment.
+- **Paso 41.** Ahora, verifica que realmente **no** podrás escalar el deployment.
 
   > **Nota.** Tu Role permite operar sobre el recurso `deployments`, pero **`kubectl scale`** usa el **subrecurso** `deployments/scale` y eso no está permitido.
   {: .lab-note .info .compact}
@@ -554,7 +554,7 @@ Probarás un **ClusterRole** con permisos de solo lectura para todos los Namespa
 
 #### Tarea 8.1
 
-- **Paso 42.** Abre el archivo `k8s/clusterrole-view.yaml` y agrega las siguientes configuraciones:
+- **Paso 42.** Abre el archivo `k8s/clusterrole-view.yaml` y agrega las siguientes configuraciones.
 
   ```yaml
   apiVersion: rbac.authorization.k8s.io/v1
@@ -567,7 +567,7 @@ Probarás un **ClusterRole** con permisos de solo lectura para todos los Namespa
     verbs: ["get", "list"]
   ```
 
-- **Paso 43.** Aplica la configuración para el Cluster Role:
+- **Paso 43.** Aplica la configuración para el Cluster Role.
 
   ```bash
   kubectl apply -f k8s/clusterrole-view.yaml
@@ -583,7 +583,7 @@ Probarás un **ClusterRole** con permisos de solo lectura para todos los Namespa
 
   ![micint]({{ page.images_base | relative_url }}/24.png)
 
-- **Paso 45.** Verifica que teoricamente si puedas tener acceso en todo el cluster:
+- **Paso 45.** Verifica que, teóricamente, puedas tener acceso en todo el clúster.
 
   ```bash
   kubectl auth can-i --as=system:serviceaccount:demo-rbac:lector-pods list pods -A
@@ -591,7 +591,7 @@ Probarás un **ClusterRole** con permisos de solo lectura para todos los Namespa
 
   ![micint]({{ page.images_base | relative_url }}/25.png)
 
-- **Paso 46.** Ahora, valida que correctamente puedas ver **TODOS** los pods de todo el cluster.
+- **Paso 46.** Ahora, valida que correctamente puedas ver **todos** los pods de todo el clúster.
 
   > **Nota.** El ClusterRole amplía permisos a nivel de todo el clúster.
   {: .lab-note .info .compact}
@@ -610,7 +610,7 @@ Probarás un **ClusterRole** con permisos de solo lectura para todos los Namespa
 
 ### Tarea 9. Limpieza (rollback total)
 
-Eliminarás objetos globales y el namespace con todo su contenido, además de archivos temporales.
+Eliminar objetos globales y el namespace con todo su contenido, además de archivos temporales.
 
 #### Tarea 9.1
 
@@ -624,7 +624,7 @@ Eliminarás objetos globales y el namespace con todo su contenido, además de ar
 
   ![micint]({{ page.images_base | relative_url }}/27.png) 
 
-- **Paso 48.** Primero, elimina los objetos **Globales**
+- **Paso 48.** Primero, elimina los objetos **Globales**.
 
   ```bash
   kubectl delete clusterrolebinding lector-global --ignore-not-found
@@ -646,7 +646,7 @@ Eliminarás objetos globales y el namespace con todo su contenido, además de ar
 
 - **Paso 50.** Elimina artefactos locales que se hayan quedado escondidos.
 
-  > **Nota.** El comando no genera salida, pero aun así aplícalo.
+  > **Nota.** Aunque el comando no genera salida, aplícalo.
   {: .lab-note .info .compact}
 
   ```bash
