@@ -32,7 +32,7 @@ references:
     url: https://nodejs.org/es
   - text: Guía de imágenes oficiales Node.js en Docker Hub
     url: https://hub.docker.com/_/node
-prev: /capitulo16/lab16          
+prev: /capitulo12/lab12          
 next: /capitulo2/lab2/
 ---
 
@@ -440,7 +440,7 @@ Construir una página **HTML/CSS/JS** que interactúe con el backend para agrega
   - **Carga inicial**: obtiene `/contactos` y pinta filas en la tabla.
   - **Render seguro**: usa `escapeHtml` para evitar inyección al mostrar nombre/teléfono.
   - **Delegación de eventos**: los botones **Editar**/**Borrar** se enlazan tras renderizar.
-  - **Crear/Actualizar**: en `submit`, valida campos y hace `POST` o `PUT` según haya `id`.
+  - **Crear o Actualizar**: en `submit`, valida campos y hace `POST` o `PUT` según haya `id`.
   - **Modo edición**: `activarEdicion()` llena el formulario y cambia el botón a **Actualizar**.
   - **Borrado**: `borrarContacto()` confirma y hace `DELETE`, luego recarga la lista.
   - **Reset UI**: `resetForm()` limpia inputs y restaura botones (**Agregar** / oculta **Cancelar**).

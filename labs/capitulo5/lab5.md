@@ -1,11 +1,11 @@
 ---
 layout: lab
-title: "Práctica 5: Redes y comunicación entre contenedores"
+title: "Práctica 5. Redes y comunicación entre contenedores"
 permalink: /capitulo5/lab5/
 images_base: /labs/capitulo5/img
 duration: "60 minutos"
 objective:
-  - Aprender a **diseñar y validar la comunicación entre contenedores** usando **redes personalizadas de Docker** (bridge). Construirás una app multi-servicio con **API Node.js (Express)**, **PostgreSQL** y **Nginx (reverse proxy)** en **dos redes**. `frontend-net` (expuesta) y `backend-net` (privada). Practicarás **DNS interno**, **aislamiento de redes**, **múltiples redes por contenedor**, variables de entorno y **comprobaciones de salud**.
+  - Aprender a **diseñar y validar la comunicación entre contenedores** usando **redes personalizadas de Docker** (bridge). Construirás una app multiservicio con **API Node.js (Express)**, **PostgreSQL** y **Nginx (reverse proxy)** en **dos redes**. `frontend-net` (expuesta) y `backend-net` (privada). Practicarás **DNS interno**, **aislamiento de redes**, **múltiples redes por contenedor**, variables de entorno y **comprobaciones de salud**.
 prerequisites:
   - Visual Studio Code
   - Docker Desktop en ejecución
@@ -13,21 +13,21 @@ prerequisites:
   - Conocimientos básicos de Node.js, SQL y Docker
   - Haber realizado prácticas previas de imágenes y volúmenes
 introduction: |
-  En entornos de microservicios solemos separar el tráfico **externo** (hacia un proxy o API Gateway) del **interno** (bases de datos, colas, servicios internos). Las **redes bridge definidas por el usuario** en Docker agregan.
-  - **DNS interno.** resolución de nombres de contenedores (p. ej., `db`, `api`).
-  - **Aislamiento**. servicios sensibles (BD) en redes privadas sin puertos expuestos al host.
-  - **Flexibilidad**. un contenedor (Nginx) puede participar en múltiples redes.
+  En entornos de microservicios solemos separar el tráfico **externo** (hacia un proxy o API Gateway) del **interno** (bases de datos, colas, servicios internos). Las **redes bridge definidas por el usuario** en Docker agregan:
+  - **DNS interno**, resolución de nombres de contenedores (p. ej., `db`, `api`).
+  - **Aislamiento**, servicios sensibles (BD) en redes privadas sin puertos expuestos al host.
+  - **Flexibilidad**, un contenedor (Nginx) puede participar en múltiples redes.
   
-  En esta práctica.
-  - **PostgreSQL.** vivirá en `backend-net` (no expone puertos al host).
-  - **API Node.js.** también en `backend-net` y consumirá la BD por **nombre de host** `db`.
-  - **Nginx.** hará de **proxy inverso**, conectado a **ambas redes**. Expondremos solo al proxy (puerto 8080).
+  En esta práctica:
+  - **PostgreSQL** vivirá en `backend-net` (no expone puertos al host).
+  - **API Node.js** también en `backend-net` y consumirá la BD por **nombre de host** `db`.
+  - **Nginx** hará de **proxy inverso**, conectado a **ambas redes**. Expondremos solo al proxy (puerto 8080).
 slug: lab5
 lab_number: 5
 final_result: >
   Arquitectura de **tres contenedores** con **dos redes**: `frontend-net` (expuesta) y `backend-net` (privada). **Nginx** enruta al **API**, el **API** consulta **PostgreSQL** vía **DNS interno**. Se valida aislamiento, nombres de servicio y salud de la aplicación.
 notes: 
-  - En producción añade SSL (Nginx) y usuarios/roles con permisos mínimos en Postgres.
+  - En producción añade SSL (Nginx) y usuarios o roles con permisos mínimos en Postgres.
   - Para desarrollo, puedes mapear un volumen para la carpeta de la API y activar **nodemon** para recarga.
   - Considera usar **Docker Compose** para declarar estos servicios y redes de forma reproducible.
 references:
@@ -46,7 +46,7 @@ next: /capitulo6/lab6/
 
 ---
 
-### Tarea 1: Crear la estructura del proyecto
+### Tarea 1. Crear la estructura del proyecto
 
 Generar una estructura clara para mapear código, configuración y scripts de inicialización de la base de datos.
 
@@ -54,9 +54,9 @@ Generar una estructura clara para mapear código, configuración y scripts de in
 
 - **Paso 1.** Inicia sesión en tu máquina de trabajo como usuario con permisos administrativos.  
 
-- **Paso 2.** Abre **Visual Studio Code (VS Code)**; lo puedes encontrar en el **Escritorio** del ambiente o buscarlo en las aplicaciones de Windows.
+- **Paso 2.** Abre **Visual Studio Code (VS Code)**. Lo puedes encontrar en el **Escritorio** del ambiente o buscarlo en las aplicaciones de Windows.
 
-- **Paso 3.** Una vez abierto **VS Code**, da clic en el ícono de la imagen para abrir la terminal, ubicado en la parte superior derecha.
+- **Paso 3.** Una vez abierto **VS Code**. Da clic en el ícono de la imagen para abrir la terminal, ubicado en la parte superior derecha.
 
   ![micint]({{ page.images_base | relative_url }}/1.png)
 
@@ -64,32 +64,32 @@ Generar una estructura clara para mapear código, configuración y scripts de in
 
   ![micint]({{ page.images_base | relative_url }}/20.png)
 
-- **Paso 5.** Asegúrate de estar dentro de la carpeta del curso llamada **dockerlabs** en la terminal de **VS Code**:
+- **Paso 5.** Asegúrate de estar dentro de la carpeta del curso llamada **dockerlabs** en la terminal de **VS Code**.
 
-  > **NOTA:** Si te quedaste en el directorio de una práctica, usa **`cd ..`** para volver a la raíz de laboratorios.
+  > **Nota.** Si te quedaste en el directorio de una práctica, usa **`cd ..`** para volver a la raíz de laboratorios.
   {: .lab-note .info .compact}
 
   ![micint]({{ page.images_base | relative_url }}/1.png)
 
-- **Paso 6.** Crea el directorio para trabajar en la **práctica 5**:
+- **Paso 6.** Crea el directorio para trabajar en la **Práctica 5**.
 
-  > **NOTA:** Aislar cada práctica evita colisiones de archivos y facilita montar rutas con precisión.
+  > **Nota.** Aislar cada práctica evita colisiones de archivos y facilita montar rutas con precisión.
   {: .lab-note .info .compact}
 
   ```bash
   mkdir lab5-dockernetworks && cd lab5-dockernetworks
   ```
 
-- **Paso 7.** Verifica en el **Explorador** de archivos dentro de VS Code que se haya creado el directorio:
+- **Paso 7.** Verifica en el **Explorador** de archivos dentro de VS Code que se haya creado el directorio.
 
-  > **NOTA:** Trabajar en VS Code permite editar y versionar cómodamente. **Git Bash** brinda compatibilidad con comandos POSIX.
+  > **Nota.** Trabajar en VS Code permite editar y versionar cómodamente. **Git Bash** brinda compatibilidad con comandos POSIX.
   {: .lab-note .info .compact}
 
   ![micint]({{ page.images_base | relative_url }}/2.png)
 
-- **Paso 8.** Crearás la siguiente estructura inicial del proyecto de la aplicación:
+- **Paso 8.** Crearás la siguiente estructura inicial del proyecto de la aplicación.
 
-  > **NOTA:**  
+  > **Notas**  
   > - `db/init.sql` inicializa el esquema al arrancar PostgreSQL.  
   > - `proxy/nginx.conf` define el enrutamiento hacia la API.  
   > - `Dockerfile.api` contiene la construcción de la API.  
@@ -110,7 +110,7 @@ Generar una estructura clara para mapear código, configuración y scripts de in
 
 - **Paso 9.** Crea la carpeta **api/** y sus archivos vacíos.
 
-  > **NOTA:** El comando se ejecuta desde la raíz de la carpeta **lab5-dockernetworks**.
+  > **Nota.** El comando se ejecuta desde la raíz de la carpeta **lab5-dockernetworks**.
   {: .lab-note .info .compact}
 
   ```bash
@@ -119,7 +119,7 @@ Generar una estructura clara para mapear código, configuración y scripts de in
 
 - **Paso 10.** Crea la carpeta **db/** y su archivo vacío.
 
-  > **NOTA:** El comando se ejecuta desde la raíz de la carpeta **lab5-dockernetworks**.
+  > **Nota.** El comando se ejecuta desde la raíz de la carpeta **lab5-dockernetworks**.
   {: .lab-note .info .compact}
 
   ```bash
@@ -128,7 +128,7 @@ Generar una estructura clara para mapear código, configuración y scripts de in
 
 - **Paso 11.** Crea la carpeta **proxy/** y su archivo vacío.
 
-  > **NOTA:** El comando se ejecuta desde la raíz de la carpeta **lab5-dockernetworks**.
+  > **Nota.** El comando se ejecuta desde la raíz de la carpeta **lab5-dockernetworks**.
   {: .lab-note .info .compact}
 
   ```bash
@@ -137,16 +137,16 @@ Generar una estructura clara para mapear código, configuración y scripts de in
 
 - **Paso 12.** Crea los últimos archivos del proyecto: **.dockerignore** y **Dockerfile.api**.
 
-  > **NOTA:** El comando se ejecuta desde la raíz de la carpeta **lab5-dockernetworks**.
+  > **Nota.** El comando se ejecuta desde la raíz de la carpeta **lab5-dockernetworks**.
   {: .lab-note .info .compact}
 
   ```bash
   touch .dockerignore Dockerfile.api
   ```
 
-- **Paso 13.** Agrega el siguiente contenido al archivo **.dockerignore** para construir imágenes más limpias:
+- **Paso 13.** Agrega el siguiente contenido al archivo **.dockerignore** para construir imágenes más limpias.
 
-  > **NOTA:** Evita copiar artefactos innecesarios dentro de la imagen.
+  > **Nota.** Evita copiar artefactos innecesarios dentro de la imagen.
   {: .lab-note .info .compact}
 
   ```gitignore
@@ -155,12 +155,12 @@ Generar una estructura clara para mapear código, configuración y scripts de in
   .DS_Store
   ```
 
-- **Paso 14.** Valida la creación de la estructura de tu proyecto; escribe el siguiente comando:
+- **Paso 14.** Valida la creación de la estructura de tu proyecto. Escribe el siguiente comando.
 
-  > **NOTA:** También puedes validarlo en el explorador de archivos de VS Code.
+  > **Nota.** También puedes validarlo en el explorador de archivos de VS Code.
   {: .lab-note .info .compact}
 
-  > **IMPORTANTE:** Deben existir `api/`, `db/`, `proxy/`, `Dockerfile.api` y `.dockerignore`.
+  > **Importante.** Deben existir `api/`, `db/`, `proxy/`, `Dockerfile.api` y `.dockerignore`.
   {: .lab-note .important .compact}
 
   ```bash
@@ -175,15 +175,15 @@ Generar una estructura clara para mapear código, configuración y scripts de in
 
 ---
 
-### Tarea 2: Base de datos PostgreSQL e inicialización
+### Tarea 2. Base de datos PostgreSQL e inicialización
 
 Definir un script SQL de arranque y variables de entorno para crear una base de datos `agenda` con la tabla `usuarios`.
 
 #### Tarea 2.1
 
-- **Paso 15.** Abre el archivo `db/init.sql` y agrega el siguiente código SQL:
+- **Paso 15.** Abre el archivo `db/init.sql` y agrega el siguiente código SQL.
 
-  > **NOTA:** Este archivo se ejecuta automáticamente cuando el contenedor de PostgreSQL detecta scripts en `/docker-entrypoint-initdb.d`.
+  > **Nota.** Este archivo se ejecuta automáticamente cuando el contenedor de PostgreSQL detecta scripts en `/docker-entrypoint-initdb.d`.
   {: .lab-note .info .compact}
 
   ```sql
@@ -208,13 +208,13 @@ Definir un script SQL de arranque y variables de entorno para crear una base de 
 
 ---
 
-### Tarea 3: Implementar API Node.js (Express) conectada a PostgreSQL
+### Tarea 3. Implementar API Node.js (Express) conectada a PostgreSQL
 
 Exponer endpoints `/health`, `/usuarios` (GET) y `/usuarios` (POST) utilizando el paquete `pg`.
 
 #### Tarea 3.1
 
-- **Paso 16.** Abre el archivo `api/package.json` y agrega el siguiente contenido para definir las dependencias:
+- **Paso 16.** Abre el archivo `api/package.json` y agrega el siguiente contenido para definir las dependencias.
 
   ```json
   {
@@ -232,12 +232,12 @@ Exponer endpoints `/health`, `/usuarios` (GET) y `/usuarios` (POST) utilizando e
   }
   ```
 
-- **Paso 17.** Abre el archivo `api/server.js`, copia y pega el siguiente código:
+- **Paso 17.** Abre el archivo `api/server.js`, copia y pega el siguiente código.
 
-  > **NOTA:**  
-  > - **Servidor Express** corriendo en un puerto configurable (`PORT` o 3000).  
-  > - **Conexión a PostgreSQL** utilizando `pg.Pool` con variables de entorno (host, puerto, usuario, contraseña y base de datos).  
-  > - **Middleware JSON** para procesar peticiones con cuerpo en formato JSON.  
+  > **Notas**  
+  > - **Servidor Express**: corriendo en un puerto configurable (`PORT` o 3000).  
+  > - **Conexión a PostgreSQL**: utilizando `pg.Pool` con variables de entorno (host, puerto, usuario, contraseña y base de datos).  
+  > - **Middleware JSON**: para procesar peticiones con cuerpo en formato JSON.  
   > - **Endpoint `/health`**: ejecuta `SELECT 1` para verificar el estado de la base de datos.  
   > - **Endpoint GET `/usuarios`**: devuelve la lista de usuarios (`id`, `nombre`, `email`) ordenados por ID descendente.  
   > - **Endpoint POST `/usuarios`**: valida los campos y crea un usuario nuevo en la tabla `usuarios`, devolviendo el registro creado.  
@@ -309,15 +309,15 @@ Exponer endpoints `/health`, `/usuarios` (GET) y `/usuarios` (POST) utilizando e
 
 ---
 
-### Tarea 4: Dockerfile de la API con HEALTHCHECK
+### Tarea 4. Dockerfile de la API con HEALTHCHECK
 
 Construir la imagen `api-agenda` y añadir comprobación de salud.
 
 #### Tarea 4.1
 
-- **Paso 18.** Abre el archivo `Dockerfile.api` que creaste en la tarea 1 y pega el siguiente contenido para compilar la imagen Docker:
+- **Paso 18.** Abre el archivo `Dockerfile.api` que creaste en la Tarea 1 y pega el siguiente contenido para compilar la imagen Docker.
 
-  > **NOTA:** El `HEALTHCHECK` permite observar el estado `healthy/unhealthy` de la API.
+  > **Nota.** El `HEALTHCHECK` permite observar el estado `healthy/unhealthy` de la API.
   {: .lab-note .info .compact}
 
   ```dockerfile
@@ -337,7 +337,7 @@ Construir la imagen `api-agenda` y añadir comprobación de salud.
   CMD ["node", "server.js"]
   ```
 
-- **Paso 19.** En la terminal de VS Code, dentro del directorio **lab5-dockernetworks**, ejecuta el siguiente comando:
+- **Paso 19.** En la terminal de VS Code, dentro del directorio **lab5-dockernetworks**, ejecuta el siguiente comando.
 
   ```bash
   docker build -f Dockerfile.api -t api-agenda .
@@ -345,9 +345,9 @@ Construir la imagen `api-agenda` y añadir comprobación de salud.
 
   ![micint]({{ page.images_base | relative_url }}/4.png)
 
-- **Paso 20.** Verifica que se haya creado correctamente la imagen; escribe el siguiente comando:
+- **Paso 20.** Verifica que se haya creado correctamente la imagen. Escribe el siguiente comando.
 
-  > **NOTA:** La imagen debe existir con su tamaño reportado.
+  > **Nota.** La imagen debe existir con su tamaño reportado.
   {: .lab-note .info .compact}
 
   ```bash
@@ -362,15 +362,15 @@ Construir la imagen `api-agenda` y añadir comprobación de salud.
 
 ---
 
-### Tarea 5: Crear redes y levantar PostgreSQL (solo backend)
+### Tarea 5. Crear redes y levantar PostgreSQL (solo backend)
 
 Crear redes y ejecutar PostgreSQL conectado **solo a `backend-net`**. Montar el script de inicialización.
 
 #### Tarea 5.1
 
-- **Paso 21.** En la terminal de VS Code, ejecuta los siguientes comandos para crear las redes de Docker:
+- **Paso 21.** En la terminal de VS Code, ejecuta los siguientes comandos para crear las redes de Docker.
 
-  > **NOTA:** Ejecuta los comandos uno por uno.
+  > **Nota.** Ejecuta los comandos uno por uno.
   {: .lab-note .info .compact}
 
   ```bash
@@ -387,10 +387,10 @@ Crear redes y ejecutar PostgreSQL conectado **solo a `backend-net`**. Montar el 
 
   ![micint]({{ page.images_base | relative_url }}/6.png)
 
-- **Paso 22.** Ejecuta el siguiente `docker run` para levantar la base de datos de ejemplo en PostgreSQL:
+- **Paso 22.** Ejecuta el siguiente `docker run` para levantar la base de datos de ejemplo en PostgreSQL.
 
-  > **NOTA:**
-  > - No publicamos el puerto 5432; el servicio `db` será visible solo en `backend-net`.
+  > **Notas**
+  > - No publicas el puerto 5432, el servicio `db` será visible solo en `backend-net`.
   > - Si no tienes la imagen **postgres:16-alpine**, se descargará automáticamente.
   {: .lab-note .info .compact}
 
@@ -400,7 +400,7 @@ Crear redes y ejecutar PostgreSQL conectado **solo a `backend-net`**. Montar el 
   --network backend-net \
   -e POSTGRES_PASSWORD=postgres \
   -e POSTGRES_USER=postgres \
-  -v "$(pwd)"/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro \ postgres:16-alpine
+  -v "$(pwd)"/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro postgres:16-alpine
   ```
 
   ![micint]({{ page.images_base | relative_url }}/7.png)
@@ -415,9 +415,9 @@ Crear redes y ejecutar PostgreSQL conectado **solo a `backend-net`**. Montar el 
 
   ![micint]({{ page.images_base | relative_url }}/8.png)
 
-- **Paso 24.** Revisa los **logs** para corroborar que no existan errores:
+- **Paso 24.** Revisa los **logs** para corroborar que no existan errores.
 
-  > **NOTA:** La salida es extensa; la imagen muestra los logs finales.
+  > **Nota.** La salida es extensa; la imagen muestra los logs finales.
   {: .lab-note .info .compact}
 
   ```bash
@@ -432,7 +432,7 @@ Crear redes y ejecutar PostgreSQL conectado **solo a `backend-net`**. Montar el 
 
 ---
 
-### Tarea 6: Levantar la API en backend y conectarla a la BD
+### Tarea 6. Levantar la API en backend y conectarla a la BD
 
 Ejecutar la API en `backend-net` con variables de entorno para acceder a Postgres por **nombre** `db`.
 
@@ -451,7 +451,7 @@ Ejecutar la API en `backend-net` con variables de entorno para acceder a Postgre
   api-agenda
   ```
 
-- **Paso 26.** Verifica que los **2 contenedores** estén creados correctamente.
+- **Paso 26.** Verifica que los **dos contenedores** estén creados correctamente.
 
   ```bash
   docker ps
@@ -459,12 +459,12 @@ Ejecutar la API en `backend-net` con variables de entorno para acceder a Postgre
 
   ![micint]({{ page.images_base | relative_url }}/10.png)  
 
-- **Paso 27.** Valida la salud desde un contenedor temporal en la misma red:
+- **Paso 27.** Valida la salud desde un contenedor temporal en la misma red.
 
-  > **NOTA:** La ruta `/health` debe devolver `{ "status": "ok", "db": "up" }`.
+  > **Nota.** La ruta `/health` debe devolver `{ "status": "ok", "db": "up" }`.
   {: .lab-note .info .compact}
 
-  > **IMPORTANTE:** Si no tienes la imagen `curlimages/curl`, Docker la descargará automáticamente.
+  > **Importante.** Si no tienes la imagen `curlimages/curl`, Docker la descargará automáticamente.
   {: .lab-note .important .compact}
 
   ```bash
@@ -474,9 +474,9 @@ Ejecutar la API en `backend-net` con variables de entorno para acceder a Postgre
 
   ![micint]({{ page.images_base | relative_url }}/11.png)  
 
-- **Paso 28.** Valida que existan los datos iniciales:
+- **Paso 28.** Valida que existan los datos iniciales.
 
-  > **NOTA:** La ruta `/usuarios` debe listar al menos **2 registros** iniciales cargados por el script SQL de inicialización (`db/init.sql`).
+  > **Nota.** La ruta `/usuarios` debe listar al menos **dos registros** iniciales cargados por el script SQL de inicialización (`db/init.sql`).
   {: .lab-note .info .compact}
 
   ```bash
@@ -492,17 +492,17 @@ Ejecutar la API en `backend-net` con variables de entorno para acceder a Postgre
 
 ---
 
-### Tarea 7: Configurar Nginx como reverse proxy (dos redes)
+### Tarea 7. Configurar Nginx como reverse proxy (dos redes)
 
-Exponer solo **Nginx** al host. Nginx estará en **frontend-net** y en **backend-net**, y reenviará tráfico a la API.
+Exponer solo **Nginx** al host. Nginx estará en **frontend-net** y en **backend-net** y reenviará tráfico a la API.
 
 #### Tarea 7.1
 
-- **Paso 29.** Abre el archivo `proxy/nginx.conf` creado anteriormente y agrega el siguiente código:
+- **Paso 29.** Abre el archivo `proxy/nginx.conf` creado anteriormente y agrega el siguiente código.
 
-  > **NOTA:**
+  > **Notas**
   > - **Bloque `events {}`**: configuración mínima requerida en Nginx.  
-  > - **Servidor HTTP** en el puerto **80**.  
+  > - **Servidor HTTP**: en el puerto **80**.  
   > - **Ruta `/proxy-health`**: responde con `200 ok` en texto plano (para chequeos de salud del proxy).  
   > - **Ruta `/` (raíz)**:  
   >   - Redirige todas las peticiones hacia `http://api:3000`.  
@@ -530,9 +530,9 @@ Exponer solo **Nginx** al host. Nginx estará en **frontend-net** y en **backend
   }
   ```
 
-- **Paso 30.** Ejecuta Nginx en la red `frontend-net` y publica el puerto:
+- **Paso 30.** Ejecuta Nginx en la red `frontend-net` y publica el puerto.
 
-  > **NOTA:** Si no tienes la imagen de **Nginx**, Docker la descargará para crear el contenedor.
+  > **Nota.** Si no tienes la imagen de **Nginx**, Docker la descargará para crear el contenedor.
   {: .lab-note .info .compact}
 
   ```bash
@@ -546,19 +546,19 @@ Exponer solo **Nginx** al host. Nginx estará en **frontend-net** y en **backend
 
   ![micint]({{ page.images_base | relative_url }}/21.png)
 
-- **Paso 31.** Conecta Nginx a `backend-net` para que resuelva el contenedor `api`:
+- **Paso 31.** Conecta Nginx a `backend-net` para que resuelva el contenedor `api`.
 
   ```bash
   docker network connect backend-net proxy
   ```
 
-- **Paso 32.** Reinicia el contenedor **proxy** para que tome efecto la conexión a la red `backend-net`:
+- **Paso 32.** Reinicia el contenedor **proxy** para que tome efecto la conexión a la red `backend-net`.
 
   ```bash
   docker restart proxy
   ```
 
-- **Paso 33.** Valida la creación y el estado del contenedor **proxy**:
+- **Paso 33.** Valida la creación y el estado del contenedor **proxy**.
 
   {% raw %}
   ```bash
@@ -568,9 +568,9 @@ Exponer solo **Nginx** al host. Nginx estará en **frontend-net** y en **backend
 
   ![micint]({{ page.images_base | relative_url }}/13.png)
 
-- **Paso 34.** Valida la salud del endpoint del proxy:
+- **Paso 34.** Valida la salud del endpoint del proxy.
 
-  > **NOTA:** Debe devolver `ok`.
+  > **Nota.** Debe devolver `ok`.
   {: .lab-note .info .compact}
 
   ```bash
@@ -579,9 +579,9 @@ Exponer solo **Nginx** al host. Nginx estará en **frontend-net** y en **backend
 
   ![micint]({{ page.images_base | relative_url }}/14.png)
 
-- **Paso 35.** Valida la funcionalidad de la API a través de Nginx:
+- **Paso 35.** Valida la funcionalidad de la API a través de Nginx.
 
-  > **NOTA:** Debe devolver la lista de usuarios.
+  > **Nota.** Debe devolver la lista de usuarios.
   {: .lab-note .info .compact}
 
   ```bash
@@ -596,13 +596,13 @@ Exponer solo **Nginx** al host. Nginx estará en **frontend-net** y en **backend
 
 ---
 
-### Tarea 8: Aislamiento y DNS interno (pruebas)
+### Tarea 8. Aislamiento y DNS interno (pruebas)
 
 Validar que la BD no es accesible desde el host y que la resolución DNS funciona solo en redes donde conviven los contenedores.
 
 #### Tarea 8.1
 
-- **Paso 36.** Intenta acceder a la BD desde el host **(debe fallar)**:
+- **Paso 36.** Intenta acceder a la BD desde el host **(debe fallar)**.
 
   ```bash
   ncat -vz localhost 5432 || echo "No accesible desde host (correcto)"
@@ -610,9 +610,9 @@ Validar que la BD no es accesible desde el host y que la resolución DNS funcion
 
   ![micint]({{ page.images_base | relative_url }}/16.png)  
 
-- **Paso 37.** Prueba la resolución desde `frontend-net` (sin backend):
+- **Paso 37.** Prueba la resolución desde `frontend-net` (sin backend).
 
-  > **NOTA:** Se descargará la imagen ya que no existe. Debe **fallar** la resolución de `db` **(no comparten red)**.
+  > **Nota.** Se descargará la imagen, ya que no existe. Debe **fallar** la resolución de `db` **(no comparten red)**.
   {: .lab-note .info .compact}
 
   ```bash
@@ -622,11 +622,11 @@ Validar que la BD no es accesible desde el host y que la resolución DNS funcion
 
   ![micint]({{ page.images_base | relative_url }}/17.png) 
 
-- **Paso 38.** Prueba la resolución y acceso desde `backend-net`:
+- **Paso 38.** Prueba la resolución y acceso desde `backend-net`.
 
-  > **NOTA:**
-  > - Confirmamos que `api` responde dentro de `backend-net`.  
-  > - Y que `db` no resuelve desde `frontend-net`.  
+  > **Nota**
+  > - Confirma que `api` responde dentro de `backend-net`.  
+  > - Asegúrate de que `db` no resuelve desde `frontend-net`.  
   {: .lab-note .info .compact}
 
   ```bash
@@ -642,28 +642,28 @@ Validar que la BD no es accesible desde el host y que la resolución DNS funcion
 
 ---
 
-### Tarea 9: Limpieza de recursos
+### Tarea 9. Limpieza de recursos
 
 Detener y eliminar recursos creados.
 
 #### Tarea 9.1
 
-- **Paso 39.** Detén y elimina los contenedores de práctica:
+- **Paso 39.** Detén y elimina los contenedores de práctica.
 
-  > **NOTA:** Libera puertos y recursos; los datos persisten si usaste volumen o bind mount.
+  > **Nota.** Libera puertos y recursos. Los datos persisten si usaste volumen o bind mount.
   {: .lab-note .info .compact}
 
   ```bash
   docker rm -f proxy api db 2>/dev/null || true
   ```
 
-- **Paso 40.** Elimina las redes creadas:
+- **Paso 40.** Elimina las redes creadas.
 
   ```bash
   docker network rm backend-net frontend-net 2>/dev/null || true
   ```
 
-- **Paso 41.** Elimina las imágenes creadas temporalmente:
+- **Paso 41.** Elimina las imágenes creadas temporalmente.
 
   ```bash
   docker rmi curlimages/curl:latest alpine:latest nginx:1.27-alpine postgres:16-alpine

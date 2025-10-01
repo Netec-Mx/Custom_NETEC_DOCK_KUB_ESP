@@ -1,6 +1,6 @@
 ---
 layout: lab
-title: "Práctica 6: Orquestación de servicios con Docker Compose"
+title: "Práctica 6. Orquestación de servicios con Docker Compose"
 permalink: /capitulo6/lab6/
 images_base: /labs/capitulo6/img
 duration: "60 minutos"
@@ -12,7 +12,7 @@ prerequisites:
   - Terminal Git Bash en VS Code
   - Conocimientos básicos de Node.js, SQL y Docker
 introduction: |
-  **Docker Compose** permite describir una aplicación multi-contenedor en un archivo `docker-compose.yml`. Allí se definen **servicios**, **redes**, **volúmenes**, **variables de entorno**, **healthchecks** y **dependencias**. En esta práctica migraremos la arquitectura del laboratorio anterior (Nginx + API + PostgreSQL) a Compose, agregaremos validaciones automáticas y probaremos **escalado** de la API.
+  **Docker Compose** permite describir una aplicación multicontenedor en un archivo `docker-compose.yml`. Allí se definen **servicios**, **redes**, **volúmenes**, **variables de entorno**, **healthchecks** y **dependencias**. En esta práctica, migrarás la arquitectura del laboratorio anterior (Nginx + API + PostgreSQL) a Compose, agregaremos validaciones automáticas y probaremos **escalado** de la API.
 slug: lab6
 lab_number: 6
 final_result: >
@@ -37,7 +37,7 @@ next: /capitulo7/lab7/
 
 ---
 
-### Tarea 1: Crear la estructura del proyecto
+### Tarea 1. Crear la estructura del proyecto
 
 Definir una estructura clara con carpetas para código, configuración del proxy e inicialización de la base de datos.
 
@@ -45,42 +45,42 @@ Definir una estructura clara con carpetas para código, configuración del proxy
 
 - **Paso 1.** Inicia sesión en tu máquina de trabajo como usuario con permisos administrativos.  
 
-- **Paso 2.** Abre el **`Visual Studio Code`** lo puedes encontrar en el **Escritorio** del ambiente o puedes buscarlo en las aplicaciones de Windows.
+- **Paso 2.** Abre el **`Visual Studio Code`**. Lo puedes encontrar en el **Escritorio** del ambiente o puedes buscarlo en las aplicaciones de Windows.
 
-- **Paso 3.** Una vez abierto **VSCode** da clic en el icono de la imagen para abrir la terminal, se encuentra en la parte superior derecha.
+- **Paso 3.** Una vez abierto **VS Code**, da clic en el icono de la imagen para abrir la terminal. Se encuentra en la parte superior derecha.
 
   ![micint]({{ page.images_base | relative_url }}/1.png)
 
-- **Paso 4.** Usa la terminal de **`Git Bash`**, da clic como lo muestra la imagen.
+- **Paso 4.** Usa la terminal de **`Git Bash`**. Da clic como lo muestra la imagen.
 
   ![micint]({{ page.images_base | relative_url }}/2.png)
 
-- **Paso 5.** Asegurate de estar dentro de la carpeta del curso llamada **dockerlabs** en la terminal de **VSCode**:
+- **Paso 5.** Asegúrate de estar dentro de la carpeta del curso llamada **dockerlabs** en la terminal de **VS Code**.
 
-  > **NOTA:** Si te quedaste en el directorio de una práctica, usa **`cd ..`** para volver a la raíz de laboratorios.
+  > **Nota.** Si te quedaste en el directorio de una práctica, usa **`cd ..`** para volver a la raíz de laboratorios.
   {: .lab-note .info .compact}
 
   ![micint]({{ page.images_base | relative_url }}/3.png)
 
-- **Paso 6.** Crea el directorio para trabajar en la **práctica 6**:
+- **Paso 6.** Crea el directorio para trabajar en la **Práctica 6**.
 
-  > **NOTA:** Aislar cada práctica evita colisiones de archivos y facilita montar rutas con precisión.
+  > **Nota.** Aislar cada práctica evita colisiones de archivos y facilita montar rutas con precisión.
   {: .lab-note .info .compact}
 
   ```bash
   mkdir lab6-dockercompose && cd lab6-dockercompose
   ```
 
-- **Paso 7.** Valida en el **Explorador** de archivos dentro de VSCode que se haya creado el directorio:
+- **Paso 7.** Valida en el **Explorador** de archivos dentro de VS Code que se haya creado el directorio.
 
-  > **NOTA:** Trabajar en VS Code permite editar y versionar cómodamente. **Git Bash** brinda compatibilidad con comandos POSIX.
+  > **Nota.** Trabajar en VS Code, permite editar y versionar cómodamente. **Git Bash** brinda compatibilidad con comandos POSIX.
   {: .lab-note .info .compact}
 
   ![micint]({{ page.images_base | relative_url }}/4.png)
 
-- **Paso 8.** Crearás la siguiente estructura inicial del proyecto de la aplicación:
+- **Paso 8.** Crearás la siguiente estructura inicial del proyecto de la aplicación.
 
-  > **NOTA:**  
+  > **Notas**  
   - `db/init.sql` inicializa el esquema al arrancar PostgreSQL.  
   - `proxy/nginx.conf` define el enrutamiento hacia la API.  
   - `Dockerfile.api` contiene la construcción de la API. 
@@ -104,7 +104,7 @@ Definir una estructura clara con carpetas para código, configuración del proxy
 
 - **Paso 9.** Ahora crea las carpetas **api/**, **db/**, **proxy/** y los archivos correspondientes.
 
-  > **NOTA:** El comando se ejecuta desde la raíz de la carpeta **lab6-dockercompose**. Puedes ejecutar todos los comandos juntos.
+  > **Nota.** El comando se ejecuta desde la raíz de la carpeta **lab6-dockercompose**. Puedes ejecutar todos los comandos juntos.
   {: .lab-note .info .compact}
 
   ```bash
@@ -114,9 +114,9 @@ Definir una estructura clara con carpetas para código, configuración del proxy
   touch Dockerfile.api docker-compose.yml .env
   ```
 
-- **Paso 10.** Valida la creación de la estructura de tu proyecto; escribe el siguiente comando:
+- **Paso 10.** Valida la creación de la estructura de tu proyecto. Escribe el siguiente comando.
 
-  > **NOTA:** También puedes validarlo en el explorador de archivos de VS Code.
+  > **Nota.** También puedes validarlo en el explorador de archivos de VS Code.
   {: .lab-note .info .compact}
 
   ```bash
@@ -131,13 +131,13 @@ Definir una estructura clara con carpetas para código, configuración del proxy
 
 ---
 
-### Tarea 2: Implementar la API Node.js (Express)
+### Tarea 2. Implementar la API Node.js (Express)
 
 Crear una API con endpoints `/health` y `/usuarios` (GET/POST) que se conecta a PostgreSQL mediante variables de entorno.
 
 #### Tarea 2.1
 
-- **Paso 11.** Abre el archivo `api/package.json` y agrega el siguiente codigo:
+- **Paso 11.** Abre el archivo `api/package.json` y agrega el siguiente código.
 
   ```json
   {
@@ -155,9 +155,9 @@ Crear una API con endpoints `/health` y `/usuarios` (GET/POST) que se conecta a 
   }
   ```
 
-- **Paso 12.** Abre el archivo `api/server.js` y agrega la logica del backend para la aplicación:
+- **Paso 12.** Abre el archivo `api/server.js` y agrega la lógica del backend para la aplicación.
 
-  > **NOTA:**
+  > **Notas**
   - **Servidor Express** en puerto configurable (`PORT` o 3000 por defecto).  
   - **Conexión a PostgreSQL** mediante `pg.Pool`, con parámetros leídos de variables de entorno.  
   - **Middleware JSON** para procesar cuerpos de peticiones.  
@@ -231,15 +231,15 @@ Crear una API con endpoints `/health` y `/usuarios` (GET/POST) que se conecta a 
 
 ---
 
-### Tarea 3: Configuración de PostgreSQL e inicialización
+### Tarea 3. Configuración de PostgreSQL e inicialización
 
 Definir el script SQL que crea la BD `agenda`, una tabla y carga datos de ejemplo.
 
 #### Tarea 3.1
 
-- **Paso 13.** Abre el archivo `db/init.sql` y define la siguiente estrucutra de SQL para la BD:
+- **Paso 13.** Abre el archivo `db/init.sql` y define la siguiente estructura de SQL para la BD.
 
-  > **NOTA:**
+  > **Notas**
   - **CREATE DATABASE agenda**: crea la base de datos llamada `agenda`.  
   - **\c agenda**: cambia la conexión actual a la base de datos `agenda`.  
   - **CREATE TABLE usuarios**: define la tabla con:  
@@ -247,7 +247,7 @@ Definir el script SQL que crea la BD `agenda`, una tabla y carga datos de ejempl
   - `nombre` → texto obligatorio.  
   - `email` → texto obligatorio y único.  
   - **INSERT INTO usuarios**: agrega registros iniciales con nombre y email.  
-  - **ON CONFLICT DO NOTHING**: evita error si los registros ya existen.  
+  - **ON CONFLICT DO NOTHING**: evita el error si los registros ya existen.  
   {: .lab-note .info .compact}
 
   ```sql
@@ -272,17 +272,17 @@ Definir el script SQL que crea la BD `agenda`, una tabla y carga datos de ejempl
 
 ---
 
-### Tarea 4: Nginx como reverse proxy
+### Tarea 4. Nginx como reverse proxy
 
 Nginx recibirá tráfico externo y lo reenviará a la API por su nombre de servicio interno (`api`).
 
 #### Tarea 4.1
 
-- **Paso 14.** Abre el archivo `proxy/nginx.conf` y da de alta el servicio nginx para recibir las solicitudes:
+- **Paso 14.** Abre el archivo `proxy/nginx.conf` y da de alta el servicio Nginx para recibir las solicitudes.
 
-  > **NOTA:**
+  > **Notas**
   - **Bloque `events {}`**: configuración mínima obligatoria en Nginx.  
-  - **Servidor HTTP** escuchando en el puerto **80**.  
+  - **Servidor HTTP**: escuchando en el puerto **80**.  
   - **Ruta `/health-proxy`**: responde `200 ok` en texto plano (para chequeos de salud).  
   - **Ruta `/`**:  
     - Redirige todas las peticiones hacia `http://api:3000/`.  
@@ -316,13 +316,13 @@ Nginx recibirá tráfico externo y lo reenviará a la API por su nombre de servi
 
 ---
 
-### Tarea 5: Dockerfile de la API con healthcheck
+### Tarea 5. Dockerfile de la API con healthcheck
 
 Crear imagen mínima de la API con verificación de salud.
 
 #### Tarea 5.1
 
-- **Paso 15.** Ahora abre el `Dockerfile.api` y define las configuraciónes para compilar la imagen:
+- **Paso 15.** Ahora, abre el `Dockerfile.api` y define las configuraciones para compilar la imagen.
 
   ```dockerfile
   FROM node:20-alpine
@@ -348,13 +348,13 @@ Crear imagen mínima de la API con verificación de salud.
 
 ---
 
-### Tarea 6: Definir `docker-compose.yml` y `.env`
+### Tarea 6. Definir `docker-compose.yml` y `.env`
 
 Declarar servicios, redes, volúmenes, dependencias y variables en Compose.
 
 #### Tarea 6.1
 
-- **Paso 16.** Dentro del archivo `.env` que se eneucuentra en la raíz del directorio **lab6...** agrega las siguientes variables:
+- **Paso 16.** Dentro del archivo `.env`, que se encuentra en la raíz del directorio **lab6...**, agrega las siguientes variables.
 
   ```env
   API_IMAGE=api-agenda:1.0
@@ -369,9 +369,9 @@ Declarar servicios, redes, volúmenes, dependencias y variables en Compose.
   DB_NAME=agenda
   ```
 
-- **Paso 17.** Ahora si dentro del archivo `docker-compose.yml` define la siguiente configuración para orquestar toda la aplicación:
+- **Paso 17.** Ahora, dentro del archivo `docker-compose.yml` define la siguiente configuración para orquestar toda la aplicación.
 
-  > **NOTA:**
+  > **Notas**
   - **db (Postgres 16)**: base de datos con persistencia (`db_data`) e init script (`init.sql`).  
   - **api (Node/Express)**: construida con `Dockerfile.api`, conecta a `db` usando variables de entorno.  
   - **proxy (Nginx)**: expone `${API_PORT}`, usa `nginx.conf`, conecta con `api`.  
@@ -437,15 +437,15 @@ Declarar servicios, redes, volúmenes, dependencias y variables en Compose.
 
 ---
 
-### Tarea 7: Levantar y validar el stack
+### Tarea 7. Levantar y validar el stack
 
 Ejecutar el stack con Compose y valida los endpoints.
 
 #### Tarea 7.1
 
-- **Paso 18.** Levantar el compose en modo **"detached"**, ejecuta el siguiente comando:
+- **Paso 18.** Levanta el compose en modo **"detached"**. Ejecuta el siguiente comando.
 
-  > **NOTA:** Ejecutalo dentro del directorio **lab6-dockercompose**
+  > **Nota.** Ejecútalo dentro del directorio **lab6-dockercompose**.
   {: .lab-note .info .compact}
 
   ```bash
@@ -454,11 +454,11 @@ Ejecutar el stack con Compose y valida los endpoints.
 
   ![micint]({{ page.images_base | relative_url }}/6.png)
 
-- **Paso 19.** Al finalizar observaras el resultado de todo lo que el **Docker Compose** creo.
+- **Paso 19.** Al finalizar, observarás el resultado de todo lo que el **Docker Compose** creó.
 
   ![micint]({{ page.images_base | relative_url }}/7.png)
 
-- **Paso 20.** Verifica que los contenedores esten creados correctamente, escribe el siguiente comando.
+- **Paso 20.** Verifica que los contenedores estén creados correctamente. Escribe el siguiente comando.
 
   ```bash
   docker compose ps
@@ -466,7 +466,7 @@ Ejecutar el stack con Compose y valida los endpoints.
 
   ![micint]({{ page.images_base | relative_url }}/8.png)
 
-- **Paso 21.** Si todo salio bien, primero valida la salud del endpoint:
+- **Paso 21.** Si todo salió bien, primero valida la salud del endpoint.
 
   ```bash
   API_PORT=8080
@@ -475,7 +475,7 @@ Ejecutar el stack con Compose y valida los endpoints.
 
   ![micint]({{ page.images_base | relative_url }}/9.png)
 
-- **Paso 22.** Muy bien, ahora valida que la aplicación este funcionando bien y devuelva los usuarios,:
+- **Paso 22.** Muy bien. Ahora, valida que la aplicación funcione bien y devuelva los usuarios.
 
   ```bash
   curl -s http://localhost:${API_PORT}/usuarios
@@ -483,7 +483,7 @@ Ejecutar el stack con Compose y valida los endpoints.
 
   ![micint]({{ page.images_base | relative_url }}/10.png)
 
-- **Paso 23.** Puedes usar este ejemplo para inyectar 1 o mas usuarios.
+- **Paso 23.** Puedes usar este ejemplo para inyectar uno o más usuarios.
 
   ```bash
   curl -s -X POST http://localhost:8080/usuarios \
@@ -493,7 +493,7 @@ Ejecutar el stack con Compose y valida los endpoints.
 
   ![micint]({{ page.images_base | relative_url }}/10.png)
 
-- **Paso 24.** Vuelve a validar para saber si inyecto correctamente el usuario nuevo.
+- **Paso 24.** Vuelve a validar que inyectó correctamente el usuario nuevo.
 
   ```bash
   curl -s http://localhost:${API_PORT}/usuarios
@@ -501,7 +501,7 @@ Ejecutar el stack con Compose y valida los endpoints.
 
   ![micint]({{ page.images_base | relative_url }}/14.png)
 
-- **Paso 25.** Usa la URL para validar la información desde el navegador web (sin interfaz grafica)
+- **Paso 25.** Usa la URL para validar la información desde el navegador web (sin interfaz gráfica).
 
   ```bash
   http://localhost:8080/usuarios
@@ -515,13 +515,13 @@ Ejecutar el stack con Compose y valida los endpoints.
 
 ---
 
-### Tarea 8: Escalado mediante compose
+### Tarea 8. Escalado mediante Compose
 
-En esta tarea probaras la escalabilidad que ofrece **Docker Compose**.
+Probar la escalabilidad que ofrece **Docker Compose**.
 
 #### Tarea 8.1
 
-- **Paso 26.** Con Docker compose puedes escalar la API a 2 réplicas muy facilmente, escribe los siguientes comandos:
+- **Paso 26.** Con Docker Compose, puedes escalar la API a dos réplicas muy fácilmente. Escribe los siguientes comandos.
 
   ```bash
   docker compose up -d --scale api=2
@@ -539,15 +539,15 @@ En esta tarea probaras la escalabilidad que ofrece **Docker Compose**.
 
 ---
 
-### Tarea 9: Limpieza de recursos
+### Tarea 9. Limpieza de recursos
 
 Detener y eliminar recursos creados.
 
 #### Tarea 9.1
 
-- **Paso 27.** Asi tambien es facil detener todo recurso y realizar la limpieza:
+- **Paso 27.** Así, también es fácil detener todo recurso y realizar la limpieza.
 
-  > **NOTA:** Docker compose se hace cargo de la orquestación de todos los componentes.
+  > **Nota.** Docker Compose se hace cargo de la orquestación de todos los componentes.
   {: .lab-note .info .compact}
 
   ```bash
@@ -556,7 +556,7 @@ Detener y eliminar recursos creados.
 
   ![micint]({{ page.images_base | relative_url }}/13.png)
 
-- **Paso 28.** Elimina las imágenes creadas temporalmente:
+- **Paso 28.** Elimina las imágenes creadas temporalmente.
 
   ```bash
   docker rmi nginx:1.27-alpine postgres:16-alpine

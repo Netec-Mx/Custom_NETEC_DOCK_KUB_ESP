@@ -1,25 +1,25 @@
 ---
 layout: lab
-title: "Práctica 3: Construcción de una imagen Docker multi-etapa"
+title: "Práctica 3. Construcción de una imagen Docker multietapa"
 permalink: /capitulo3/lab3/
 images_base: /labs/capitulo3/img
 duration: "60 minutos"
 objective:
-  - El objetivo de esta práctica es que el participante aprenda a construir imágenes Docker optimizadas utilizando la técnica de **multi-stage builds**, comparando el tamaño de la imagen con y sin multi-etapa. Usaremos como ejemplo una aplicación Node.js con Express que sirva un frontend estático y una API REST.
+  - El objetivo de esta práctica es que el participante aprenda a construir imágenes Docker optimizadas utilizando la técnica de **Multi-Stage Builds**, comparando el tamaño de la imagen con y sin multietapa. Usaremos como ejemplo una aplicación Node.js con Express que sirva un frontend estático y una API REST.
 prerequisites:
   - Visual Studio Code instalado
   - Docker Desktop instalado y en ejecución
   - Git Bash configurado como terminal por defecto en VS Code
   - Conocimientos básicos de Node.js y Docker
-  - Haber completado la practica 1
+  - Haber completado la Práctica 1
 introduction:
-  - Las **imágenes multi-etapa** permiten separar el proceso de construcción (instalación de dependencias y compilación de frontend) del de ejecución. Con esto se reduce el tamaño de la imagen final y se evitan dependencias innecesarias en producción. En esta práctica construiremos una aplicación Node.js con un backend REST y un frontend estático en React simulado con archivos preconstruidos, para demostrar el impacto de los multi-stage builds.
+  - Las **imágenes multietapa** permiten separar el proceso de construcción (instalación de dependencias y compilación de frontend) del de ejecución. Con esto se reduce el tamaño de la imagen final y se evitan dependencias innecesarias en producción. En esta práctica construiremos una aplicación Node.js con un backend REST y un frontend estático en React simulado con archivos preconstruidos, para demostrar el impacto de los Multi-Stage Builds.
 slug: lab3
 lab_number: 3
 final_result: >
-  El estudiante habrá construido una aplicación Node.js contenerizada con un **Dockerfile multi-etapa**, obteniendo una imagen ligera y optimizada, validando que la aplicación funciona correctamente y que el tamaño de la imagen se reduce respecto a una construcción tradicional.
+  El estudiante habrá construido una aplicación Node.js contenerizada con un **Dockerfile multietapa**, obteniendo una imagen ligera y optimizada, validando que la aplicación funciona correctamente y que el tamaño de la imagen se reduce respecto a una construcción tradicional.
 notes: 
-  - Multi-stage es aplicable a múltiples lenguajes (Java, Go, .NET).
+  - Multi-Stage es aplicable a múltiples lenguajes (Java, Go, .NET).
   - Siempre validar la funcionalidad de la aplicación antes de optimizar.
   - Para builds grandes, se recomienda usar `--target` para depuración de etapas intermedias.
 references:
@@ -34,7 +34,7 @@ next: /capitulo4/lab4/
 
 ---
 
-### Tarea 1: Preparar la estructura del proyecto
+### Tarea 1. Preparar la estructura del proyecto
 
 Crear la estructura de carpetas con backend y frontend.
 
@@ -42,9 +42,9 @@ Crear la estructura de carpetas con backend y frontend.
 
 - **Paso 1.** Inicia sesión en tu máquina de trabajo como usuario con permisos administrativos.  
 
-- **Paso 2.** Abre el **`Visual Studio Code`** lo puedes encontrar en el **Escritorio** del ambiente o puedes buscarlo en las aplicaciones de Windows.
+- **Paso 2.** Abre el **`Visual Studio Code`**. Lo puedes encontrar en el **Escritorio** del ambiente o puedes buscarlo en las aplicaciones de Windows.
 
-- **Paso 3.** Una vez abierto **VSCode** da clic en el icono de la imagen para abrir la terminal, se encuentra en la parte superior derecha.
+- **Paso 3.** Una vez abierto **VS Code**, da clic en el icono de la imagen para abrir la terminal, se encuentra en la parte superior derecha.
 
   ![micint]({{ page.images_base | relative_url }}/9.png)
 
@@ -52,20 +52,20 @@ Crear la estructura de carpetas con backend y frontend.
 
   ![micint]({{ page.images_base | relative_url }}/10.png)
 
-- **Paso 5.** Asegurate de estar dentro de la carpeta del curso llamada **dockerlabs** en la terminal de **VSCode**:
+- **Paso 5.** Asegúrate de estar dentro de la carpeta del curso llamada **dockerlabs** en la terminal de **VS Code**.
 
-  > **NOTA:** Si te quedaste en el directorio de una practica usa **`cd ..`** para retornar a la raíz de laboratorios.
+  > **Nota.** Si te quedaste en el directorio de una práctica, usa **`cd ..`** para retornar a la raíz de laboratorios.
   {: .lab-note .info .compact}
 
   ![micint]({{ page.images_base | relative_url }}/1.png)
 
-- **Paso 6.** Ahora crea el directorio para trabajar en la practica 3:
+- **Paso 6.** Ahora crea el directorio para trabajar en la Práctica 3.
 
   ```bash
   mkdir lab3-dockermultistage && cd lab3-dockermultistage
   ```
 
-- **Paso 7.** Valida en el **Explorador** de archivos dentro de VSCode que se haya creado el directorio:
+- **Paso 7.** Valida en el **Explorador** de archivos dentro de VS Code que se haya creado el directorio.
 
   ![micint]({{ page.images_base | relative_url }}/2.png)
 
@@ -75,17 +75,17 @@ Crear la estructura de carpetas con backend y frontend.
 
 ---
 
-### Tarea 2: Creación del backend
+### Tarea 2. Creación del backend
 
-Implementar una API REST en Node.js. Se reutilizara el backend creado en la practica 1
+Implementar una API REST en Node.js. Se reutilizará el backend creado en la Práctica 1.
 
 #### Tarea 2.1
 
-- **Paso 8.** Copia la carpeta **backend** de la practica 1, escribe el siguiente comando.
+- **Paso 8.** Copia la carpeta **backend** de la Práctica 1, escribe el siguiente comando.
 
-  > **IMPORTANTE:**
+  > **Importante**
     - El comando se ejecuta desde adentro de la carpeta **lab3-dockermultistage**.
-    - En caso de que no estes dentro de la carpeta **lab3...** ajusta las rutas.
+    - En caso de que no estés dentro de la carpeta **lab3...**, ajusta las rutas.
   {: .lab-note .important .compact}
 
 
@@ -93,9 +93,9 @@ Implementar una API REST en Node.js. Se reutilizara el backend creado en la prac
   cp -r ../lab1-acontactos/backend/ .
   ```
 
-- **Paso 9.** Ahora escribe el siguiente comando para validar que se haya copiado correctamente la carpeta **backend**
+- **Paso 9.** Ahora, escribe el siguiente comando para validar que se haya copiado correctamente la carpeta **backend**.
 
-  > **NOTA:** Recuerda que tambien puedes visualizarlo en el explorador de archivos de VSCode.
+  > **Nota.** Recuerda que también puedes visualizarlo en el explorador de archivos de VS Code.
   {: .lab-note .info .compact}
 
   ```bash
@@ -110,26 +110,26 @@ Implementar una API REST en Node.js. Se reutilizara el backend creado en la prac
 
 ---
 
-### Tarea 3: Creación del frontend
+### Tarea 3. Creación del frontend
 
-Se reutilizara el directorio **frontend** que tiene el sitio web estatico.
+Reutilizar el directorio **frontend** que tiene el sitio web estático.
 
 #### Tarea 3.1
 
-- **Paso 10.** Copia la carpeta **frontend** de la practica 1, escribe el siguiente comando.
+- **Paso 10.** Copia la carpeta **frontend** de la Práctica 1, escribe el siguiente comando.
 
-  > **IMPORTANTE:**
+  > **Importante**
     - El comando se ejecuta desde adentro de la carpeta **lab3-dockermultistage**.
-    - En caso de que no estes dentro de la carpeta **lab3...** ajusta las rutas.
+    - En caso de que no estés dentro de la carpeta **lab3...** ajusta las rutas.
   {: .lab-note .important .compact}
 
   ```bash
   cp -r ../lab1-acontactos/frontend/ .
   ```
 
-- **Paso 11.** Ahora escribe el siguiente comando para validar que se haya copiado correctamente la carpeta **frontend**
+- **Paso 11.** Ahora, escribe el siguiente comando para validar que se haya copiado correctamente la carpeta **frontend**.
 
-  > **NOTA:** Recuerda que tambien puedes visualizarlo en el explorador de archivos de VSCode.
+  > **Nota.** Recuerda que también puedes visualizarlo en el explorador de archivos de VS Code.
   {: .lab-note .info .compact}
 
   ```bash
@@ -144,15 +144,15 @@ Se reutilizara el directorio **frontend** que tiene el sitio web estatico.
 
 ---
 
-### Tarea 4: Construir imagen sin multi-stage
+### Tarea 4. Construir imagen sin Multi-Stage
 
-En esta tarea crearas un Dockerfile simple y analizaras el tamaño.
+Crear un Dockerfile simple y analizar el tamaño.
 
 #### Tarea 4.1
 
 - **Paso 12.** Crea el archivo **Dockerfile** dentro del directorio **lab3-dockermultistage.**
 
-  > **NOTA:** El comando se ejecuta desde la carpeta **lab3...**
+  > **Nota.** El comando se ejecuta desde la carpeta **lab3...**
   {: .lab-note .info .compact}
 
   ```bash
@@ -162,9 +162,9 @@ En esta tarea crearas un Dockerfile simple y analizaras el tamaño.
 
   ![micint]({{ page.images_base | relative_url }}/5.png)
 
-- **Paso 13.** Agrea el siguiente codigo al archivo **Dockerfile**.
+- **Paso 13.** Agrega el siguiente código al archivo **Dockerfile**.
 
-  > **NOTA:** Este Dockerfile crea una imagen sin multi-stage.
+  > **Nota.** Este Dockerfile crea una imagen sin Multi-Stage.
   {: .lab-note .info .compact}
 
   ```dockerfile
@@ -178,18 +178,18 @@ En esta tarea crearas un Dockerfile simple y analizaras el tamaño.
   CMD ["node", "backend/server.js"]
   ```
 
-- **Paso 14.** Compila el proyecto de docker, escribe el siguiente comando dentro de la terminal.
+- **Paso 14.** Compila el proyecto de docker. Escribe el siguiente comando dentro de la terminal.
 
-  > **NOTA:** El comando se ejecuta desde la carpeta **lab3...**
+  > **Nota.** El comando se ejecuta desde la carpeta **lab3...**
   {: .lab-note .info .compact}
 
   ```bash
   docker build -t contactos-tradicional .
   ```
 
-- **Paso 15.** Ahora valida el tamaño de la imagen creada despues de la compilación.
+- **Paso 15.** Ahora, valida el tamaño de la imagen creada después de la compilación.
 
-  > **NOTA:** Aproximadamente el tamaño quedara `207MB` puede ser diferente.
+  > **Nota.** Aproximadamente, el tamaño será de `207MB`, aunque puede diferir.
   {: .lab-note .info .compact}
 
   ```bash
@@ -198,9 +198,9 @@ En esta tarea crearas un Dockerfile simple y analizaras el tamaño.
 
   ![micint]({{ page.images_base | relative_url }}/6.png)
 
-- **Paso 16.** Si es necesario anota el numero del tamaño de la imagen.
+- **Paso 16.** Si es necesario, anota el número del tamaño de la imagen.
 
-  > **NOTA:** Esta es la forma tradicional, pero genera imágenes más grandes dependiendo de como este estructurada la aplicación.
+  > **Nota.** Esta es la forma tradicional, pero genera imágenes más grandes dependiendo de cómo esté estructurada la aplicación.
   {: .lab-note .info .compact}
 
 {% assign results = site.data.task-results[page.slug].results %}
@@ -209,17 +209,17 @@ En esta tarea crearas un Dockerfile simple y analizaras el tamaño.
 
 ---
 
-### Tarea 5: Construir imagen con multi-stage
+### Tarea 5. Construir imagen con Multi-Stage
 
-En esta tarea optimizaras la construcción usando **multi-stage**.
+Optimizar la construcción usando **Multi-Stage**.
 
 #### Tarea 5.1
 
-- **Paso 17.** Crea otro archivo **Dockerfile** para que quede mejor organizado, escribe el siguiente comando.
+- **Paso 17.** Crea otro archivo **Dockerfile** para que quede mejor organizado y escribe el siguiente comando.
 
-  > **NOTA:**
-    - El nombre **opt** hace referencia a **Optimización** para la compilación del Multi-Stage
-    - Se crea dentro del mismo directorio **lab3...** 
+  > **Nota**
+    - El nombre **opt** hace referencia a **Optimización** para la compilación del Multi-Stage.
+    - Se crea dentro del mismo directorio **lab3...**.
   {: .lab-note .info .compact}
 
   ```bash
@@ -227,9 +227,9 @@ En esta tarea optimizaras la construcción usando **multi-stage**.
   code Dockerfile.opt
   ```
 
-- **Paso 18.** Ahora agrega el siguiente codigo a ese nuevo archivo **Dockerfile.opt**
+- **Paso 18.** Ahora, agrega el siguiente código a ese nuevo archivo **Dockerfile.opt**.
 
-  > **NOTA:** El contenido es muy parecido al ejemplo anterior, pero internamente se mejora el proceso reduciendo las capas.
+  > **Nota.** El contenido es muy parecido al ejemplo anterior, pero internamente se mejora el proceso reduciendo las capas.
   {: .lab-note .info .compact}
 
   ```dockerfile
@@ -249,9 +249,9 @@ En esta tarea optimizaras la construcción usando **multi-stage**.
   CMD ["node", "backend/server.js"]
   ```
 
-- **Paso 19.** Ahora construye la imagen, escribe el siguiente comando.
+- **Paso 19.** Ahora construye la imagen, escribiendo el siguiente comando.
 
-  > **NOTA:** Quizas alcances a notar que compila un poco mas rapido, todo depende de que tanta información tenga tu proyecto.
+  > **Nota.** Quizás, alcances a notar que compila un poco más rápido, todo depende de cuánta información tenga tu proyecto.
   {: .lab-note .info .compact}
 
   ```bash
@@ -266,7 +266,7 @@ En esta tarea optimizaras la construcción usando **multi-stage**.
 
   ![micint]({{ page.images_base | relative_url }}/7.png)
 
-- **Paso 21.** Si es necesario anota el numero del tamaño de la imagen.
+- **Paso 21.** Si es necesario, anota el número del tamaño de la imagen.
 
 {% assign results = site.data.task-results[page.slug].results %}
 {% capture r1 %}{{ results[4] }}{% endcapture %}
@@ -274,17 +274,17 @@ En esta tarea optimizaras la construcción usando **multi-stage**.
 
 ---
 
-### Tarea 6: Comparar resultados
+### Tarea 6. Comparar resultados
 
-En esta tarea verificaras la diferencia de tamaños de las imagenes.
+Verificar la diferencia de tamaños de las imágenes.
 
 #### Tarea 6.1
 
-- **Paso 22.** Usa el siguiente comando para realizar la comparacion de las imagnes.
+- **Paso 22.** Usa el siguiente comando para realizar la comparación de las imágenes.
 
-  > **IMPORTANTE:**
-    - El comando se ejecuta dentro de la terminal **GitBash**
-    - Puede ser en cualquier directorio, pero deseado en **lab3...**
+  > **Importante**
+    - El comando se ejecuta dentro de la terminal **GitBash**.
+    - Puede estar en cualquier directorio, pero lo ideal es que esté en **lab3...**
   {: .lab-note .important .compact}
 
   ```bash
@@ -293,7 +293,7 @@ En esta tarea verificaras la diferencia de tamaños de las imagenes.
 
   ![micint]({{ page.images_base | relative_url }}/8.png)
 
-- **Paso 23.** Puedes observar que ligeramente la imagen **opt** es mas pequeña, recuerda que depende de que tanta informacion tenga tu proyecto.
+- **Paso 23.** Puedes observar que la imagen **opt** es ligeramente más pequeña, recuerda que depende de cuánta información tenga tu proyecto.
 
 {% assign results = site.data.task-results[page.slug].results %}
 {% capture r1 %}{{ results[5] }}{% endcapture %}
@@ -301,20 +301,20 @@ En esta tarea verificaras la diferencia de tamaños de las imagenes.
 
 ---
 
-### Tarea 7: Añadir .dockerignore (mejor caché y tamaño)
+### Tarea 7. Añadir .dockerignore (mejor caché y tamaño)
 
-En esta tarea crearás un archivo .dockerignore para excluir archivos innecesarios y mejorar el tamaño y la caché de las imágenes.
+Crear un archivo .dockerignore para excluir archivos innecesarios y mejorar el tamaño y la caché de las imágenes.
 
 #### Tarea 7.1
 
-- **Paso 24.** Crea y abre un archivo **.dockerignore** en la raíz **lab3-dockermultistage**:
+- **Paso 24.** Crea y abre un archivo **.dockerignore** en la raíz **lab3-dockermultistage**.
 
   ```bash
   touch .dockerignore
   code .dockerignore
   ```
 
-- **Paso 25.** Ahora agrega el siguiente contenido al archivo
+- **Paso 25.** Ahora, agrega el siguiente contenido al archivo.
 
   ```gitignore
   backend/node_modules
@@ -328,21 +328,21 @@ En esta tarea crearás un archivo .dockerignore para excluir archivos innecesari
   Thumbs.db
   ```
 
-- **Paso 26.** Reconstruye la imagen **tradicional**:
+- **Paso 26.** Reconstruye la imagen **tradicional**.
 
   ```bash
   docker build -t contactos-tradicional .
   ```
 
-- **Paso 27.** Reconstruye la imagen **optimizada**:
+- **Paso 27.** Reconstruye la imagen **optimizada**.
 
   ```bash
   docker build -f Dockerfile.opt -t contactos-opt .
   ```
 
-- **Paso 28.** Ahora valida ambos tamaños y compara el resultado:
+- **Paso 28.** Ahora, valida ambos tamaños y compara el resultado.
 
-  > **NOTA:** Como puedes observar se hizo una reducción relativa a la cantidad de archivos de la aplicación
+  > **Nota.** Como puedes observar, se hizo una reducción relativa a la cantidad de archivos de la aplicación.
   {: .lab-note .info .compact}
 
   ```bash
@@ -357,16 +357,16 @@ En esta tarea crearás un archivo .dockerignore para excluir archivos innecesari
 
 ---
 
-### Tarea 8: Variante de runtime aún más ligera
+### Tarea 8. Variante de runtime aún más ligera
 
 
 #### Tarea 8.1
 
-En esta tarea crearás un Dockerfile.slim con multi-stage minimalista para generar imágenes más ligeras y seguras.
+Crear un Dockerfile.slim con Multi-Stage minimalista para generar imágenes más ligeras y seguras.
 
-- **Paso 29.** Crea **Dockerfile.slim** para copiar únicamente lo necesario:
+- **Paso 29.** Crea **Dockerfile.slim** para copiar únicamente lo necesario.
 
-  > **NOTA:** El comando se ejecuta dentro del directorio **lab3...**
+  > **Nota.** El comando se ejecuta dentro del directorio **lab3...**
   {: .lab-note .info .compact}
 
   ```bash
@@ -392,7 +392,7 @@ En esta tarea crearás un Dockerfile.slim con multi-stage minimalista para gener
   CMD ["node", "backend/server.js"]
   ```
 
-- **Paso 31.** Construye la nueva imagen basada en el **Dockerfile.slim**:
+- **Paso 31.** Construye la nueva imagen basada en el **Dockerfile.slim**.
 
   ```bash
   docker build -f Dockerfile.slim -t contactos-slim .
@@ -400,7 +400,7 @@ En esta tarea crearás un Dockerfile.slim con multi-stage minimalista para gener
 
 - **Paso 32.** Escribe el siguiente comando para observar el resultado.
 
-  > **NOTA:** Tanto la version **opt** como la **slim** usan **Multi-Stage**. Pero **slim** es mucho mas minimalista ya que la propiedad **--from=deps** copia solo lo que se necesita.
+  > **Nota.** Tanto la versión **opt** como la **slim** usan **Multi-Stage**,pero **slim** es mucho más minimalista, ya que la propiedad **--from=deps** copia solo lo que se necesita.
   {: .lab-note .info .compact}
 
   ```bash
@@ -415,13 +415,13 @@ En esta tarea crearás un Dockerfile.slim con multi-stage minimalista para gener
 
 ---
 
-### Tarea 9: Limpieza y buenas prácticas
+### Tarea 9. Limpieza y buenas prácticas
 
-En esta tarea eliminaras las imagenes creadas para mantener limpio el ambiente.
+Eliminar las imágenes creadas para mantener limpio el ambiente.
 
 #### Tarea 9.1
 
-- **Paso 33.** Escribe el siguiente comando para eliminar las imagenes:
+- **Paso 33.** Escribe el siguiente comando para eliminar las imágenes.
 
   ```bash
   docker rmi contactos-tradicional contactos-opt contactos-slim
@@ -431,7 +431,7 @@ En esta tarea eliminaras las imagenes creadas para mantener limpio el ambiente.
 
 - **Paso 34.** Verifica que ya no aparezca ninguna imagen **contactos-...**
 
-  > **NOTA:** En caso de que todavia exista alguna, repite el paso anterior.
+  > **Nota.** En caso de que todavía exista alguna, repite el paso anterior.
   {: .lab-note .info .compact}
 
   ```bash

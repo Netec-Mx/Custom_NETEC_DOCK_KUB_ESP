@@ -4,7 +4,7 @@ title: "Plataforma de Laboratorios Netec" # MODIFICAR
 subtitle: "Docker y Kubernetes" # MODIFICAR
 emoji: "✨"
 intro: |
-  Bienvenido a la **Plataforma de Laboratorios** del curso **Introducción a Docker y Kubernetes**. Aquí podrás explorar diferentes configuraciones a través de prácticas guiadas. ¡Desarrolla tus habilidades y lleva tus conocimientos al siguiente nivel!
+  Bienvenido a la **Plataforma de Laboratorios** del curso **Docker y Kubernetes**. Aquí podrás explorar diferentes configuraciones a través de prácticas guiadas. ¡Desarrolla tus habilidades y lleva tus conocimientos al siguiente nivel!
 course_id: dock_kub_esp # MODIFICAR
 permalink: /
 thanks_note: "**¡Gracias por visitar nuestra plataforma!** No olvides revisar todos los laboratorios y comenzar tu viaje de aprendizaje hoy mismo."
