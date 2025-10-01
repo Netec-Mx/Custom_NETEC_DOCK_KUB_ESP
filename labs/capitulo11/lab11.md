@@ -457,7 +457,7 @@ Crear un Role que permita **listar y escalar Deployments**.
 
 #### Tarea 7.1
 
-- **Paso 34.** Abre el archivo `k8s/role-deployment.yaml` el permiso para los deployments.
+- **Paso 34.** Abre el archivo `k8s/role-deployment.yaml` que otorga el permiso para los deployments.
 
   ```yaml
   apiVersion: rbac.authorization.k8s.io/v1
