@@ -106,7 +106,7 @@ Configurar la estructura de carpetas y archivos del proyecto para mantener una b
 
 - **Paso 9.** Abre el directorio del proyecto en **VS Code**.
 
-  > **NOTA:** Da clic en el icono como se muestra en la imagen.
+  > **Nota.** Da clic en el icono como se muestra en la imagen.
   {: .lab-note .info .compact}
   ![micint]({{ page.images_base | relative_url }}/8.png)
 
