@@ -1,6 +1,6 @@
 ---
 layout: lab
-title: "Práctica 16. Observabilidad de kubernetes"
+title: "Práctica 16. Observabilidad de Kubernetes"
 permalink: /capitulo16/lab16/
 images_base: /labs/capitulo16/img
 duration: "60 minutos"
