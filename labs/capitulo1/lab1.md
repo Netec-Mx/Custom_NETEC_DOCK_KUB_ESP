@@ -144,7 +144,7 @@ Implementar un servidor **Express** que maneje rutas para agregar, listar, actua
   ```
   ![micint]({{ page.images_base | relative_url }}/12.png)
 
-- **Paso 14.** Inicializa un proyecto de **Node.js** en la carpeta `backend` e instala **Express**:
+- **Paso 14.** Inicializa un proyecto de **Node.js** en la carpeta `backend` e instala **Express**.
 
   > **Nota.** Verifica que el directorio actual sea **backend**.
   {: .lab-note .info .compact} 
@@ -341,7 +341,7 @@ Construir una página **HTML/CSS/JS** que interactúe con el backend para agrega
   </html>
   ```
 
-- **Paso 25.** Abre el archivo **style.css** (en el directorio **frontend**):
+- **Paso 25.** Abre el archivo **style.css** (en el directorio **frontend**).
 
   ```bash
   code style.css
