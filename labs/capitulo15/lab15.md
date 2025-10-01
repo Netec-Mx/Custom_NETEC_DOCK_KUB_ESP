@@ -5,16 +5,16 @@ permalink: /capitulo15/lab15/
 images_base: /labs/capitulo15/img
 duration: "60 minutos"
 objective:
-  - Aprenderás a aplicar **afinidad, antiafinidad y tolerancias** en pods para controlar dónde se ejecutan tus aplicaciones dentro de un clúster multinodo en Minikube. Configurarás un entorno con múltiples nodos, desplegarás pods con diferentes reglas de scheduling y finalmente harás limpieza del entorno.
+  - Aprenderás a aplicar **afinidad, antiafinidad y tolerancias** en pods para controlar dónde se ejecutan tus aplicaciones dentro de un clúster multinodo en Minikube. Configurarás un entorno con múltiples nodos, desplegarás pods con diferentes reglas de scheduling y, finalmente, harás limpieza del entorno.
 prerequisites:
   - Visual Studio Code  
   - Minikube instalado (con soporte para multinodo)  
   - kubectl instalado y configurado  
   - Docker Desktop como backend para Minikube  
   - Terminal **Git Bash** dentro de VS Code  
-  - Conocimientos previos de pods, Deployments y Namespaces  
+  - Conocimientos previos de pods, deployments y namespaces  
 introduction: |
-  En Kubernetes puedes influir en el **scheduler** (programador de pods) usando **afinidad y antiafinidad**. Esto te permite decidir si los pods se colocan en el mismo nodo o en nodos distintos. Además, las **toleraciones (tolerations)** permiten que un pod pueda ejecutarse en nodos que tienen **taints** (marcas que restringen el acceso).  
+  En Kubernetes, puedes influir en el **scheduler** (programador de pods) usando **afinidad y antiafinidad**. Esto te permite decidir si los pods se colocan en el mismo nodo o en nodos distintos. Además, las **toleraciones (tolerations)** permiten que un pod pueda ejecutarse en nodos que tienen **taints** (marcas que restringen el acceso).  
 
   En esta práctica, crearás un **clúster multinodo con Minikube** (tres nodos) y, luego, desplegarás **pods con afinidad, antiafinidad y tolerancias** para observar cómo Kubernetes programa los pods en diferentes nodos.
 slug: lab15
@@ -49,9 +49,9 @@ Configurar Minikube para ejecutar un clúster con tres nodos (un máster y dos w
 
 - **Paso 1.** Inicia sesión en tu máquina de trabajo como usuario con permisos administrativos. 
 
-- **Paso 2.** Abre el **`Visual Studio Code`** lo puedes encontrar en el **Escritorio** del ambiente o puedes buscarlo en las aplicaciones de Windows.
+- **Paso 2.** Abre el **`Visual Studio Code`**, lo puedes encontrar en el **Escritorio** del ambiente o puedes buscarlo en las aplicaciones de Windows.
 
-- **Paso 3.** Una vez abierto **VS Code** da clic en el icono de la imagen para abrir la terminal, se encuentra en la parte superior derecha.
+- **Paso 3.** Una vez abierto **VS Code**, da clic en el icono de la imagen para abrir la terminal, se encuentra en la parte superior derecha.
 
   ![micint]({{ page.images_base | relative_url }}/1.png)
 
@@ -66,7 +66,7 @@ Configurar Minikube para ejecutar un clúster con tres nodos (un máster y dos w
 
   ![micint]({{ page.images_base | relative_url }}/3.png)
 
-- **Paso 6.** Primero, ejecuta el siguiente comando para iniciar un clúster multinodo de Minikube:
+- **Paso 6.** Primero, ejecuta el siguiente comando para iniciar un clúster multinodo de Minikube.
 
   > **Nota.** Tener **múltiples nodos** te permitirá comprobar cómo funcionan la afinidad y la antiafinidad en un escenario más realista.
   {: .lab-note .info .compact}
@@ -80,7 +80,7 @@ Configurar Minikube para ejecutar un clúster con tres nodos (un máster y dos w
 
   ![micint]({{ page.images_base | relative_url }}/4.png)
 
-- **Paso 7.** Ya creado el cluster multinodo puedes verificar los nodos creados con el siguiente comando.:
+- **Paso 7.** Ya creado el clúster multinodo puedes verificar los nodos creados con el siguiente comando.
 
   > **Nota.** Debes ver al menos 3 nodos: `multinodo`, `multinodo-m02`, `multinodo-m03`.
   {: .lab-note .info .compact}
@@ -103,7 +103,7 @@ Organizar todos los manifiestos de esta práctica en una carpeta propia.
 
 #### Tarea 2.1
 
-- **Paso 8.** Crea el directorio para trabajar en la **práctica**:
+- **Paso 8.** Crea el directorio para trabajar en la **práctica**.
 
   > **Nota.** Aislar cada práctica evita colisiones de archivos y facilita montar rutas con precisión.
   {: .lab-note .info .compact}
@@ -135,7 +135,7 @@ Organizar todos los manifiestos de esta práctica en una carpeta propia.
 
 - **Paso 11.** Ahora, crea la carpeta **k8s/** y sus archivos vacíos.
 
-  > **Nota.** El comando se ejecuta desde la raíz de la carpeta **lab15-k8safitol**
+  > **Nota.** El comando se ejecuta desde la raíz de la carpeta **lab15-k8safitol**.
   {: .lab-note .info .compact}
 
   ```bash
@@ -180,7 +180,7 @@ Crear un pod que **solo se ejecute en nodos etiquetados**.
 
   ![micint]({{ page.images_base | relative_url }}/9.png)
 
-- **Paso 15.** Define la configuración del pod dentro del archivo `k8s/pod-afinidad.yaml`:
+- **Paso 15.** Define la configuración del pod dentro del archivo `k8s/pod-afinidad.yaml`.
 
   > **Nota.** **Revisa entre la línea 11 y 14 del manifiesto.** El pod se programará en el nodo `multinodo-m02` porque es el único con la etiqueta `zona=primaria`.
   {: .lab-note .info .compact}
@@ -211,9 +211,9 @@ Crear un pod que **solo se ejecute en nodos etiquetados**.
   kubectl apply -f k8s/pod-afinidad.yaml
   ```
 
-- **Paso 17.** Verifica que en efecto el pod se haya creado en ese nodo gracias a la afinidad configurada.
+- **Paso 17.** Verifica que, en efecto, el pod se haya creado en ese nodo gracias a la afinidad configurada.
 
-  > **Nota.** Si verificaste muy rapido espera unos segundos y vuelve a ejecutar el comando.
+  > **Nota.** Si verificaste muy rápido, espera unos segundos y vuelve a ejecutar el comando.
   {: .lab-note .info .compact}
 
   ```bash
@@ -268,9 +268,9 @@ Crear pods que **eviten ejecutarse en el mismo nodo**.
   kubectl apply -f k8s/pod-antiafinidad.yaml
   ```
 
-- **Paso 20.** Ahora, observa en que nodo aterrizo el pod. 
+- **Paso 20.** Ahora, observa en que nodo aterrizó el pod. 
 
-  > **Nota.** Si verificaste muy rapido espera unos segundos y vuelve a ejecutar el comando.
+  > **Nota.** Si verificaste muy rápido, espera unos segundos y vuelve a ejecutar el comando.
   {: .lab-note .info .compact}
 
   ```bash
@@ -281,7 +281,7 @@ Crear pods que **eviten ejecutarse en el mismo nodo**.
 
 - **Paso 21.** Crea un segundo pod con la misma etiqueta `(app=demo)`.
 
-  > **Nota.** En caso de que solo se tenga 1 nodo, el **segundo pod** quedará `Pending` porque no puede convivir con otro **app=demo** en el mismo hostname.
+  > **Nota.** En caso de que solo se tenga un nodo, el **segundo pod** quedará `Pending` porque no puede convivir con otro **app=demo** en el mismo hostname.
   {: .lab-note .info .compact}
 
   ```bash
@@ -306,14 +306,14 @@ Crear pods que **eviten ejecutarse en el mismo nodo**.
 
 ### Tarea 5. Usar toleraciones con taints
 
-Marcar (taint) un nodo para que no acepte pods normales y, luego, crear un pod con una tolerancia que le permita ejecutarse ahí. Esto asegura que solo workloads autorizados usen nodos dedicados.
+Marcar (taint) un nodo para que no acepte pods normales y, luego, crear un pod con una tolerancia que le permita ejecutarse ahí para asegurar que solo workloads autorizados usen nodos dedicados.
 
 #### Tarea 5.1. Aplicar el taint
 
-- **Paso 22.** Aplica un taint en el nodo `multinodo-m03`:
+- **Paso 22.** Aplica un taint en el nodo `multinodo-m03`.
 
   > **Notas** 
-    - `uso=dedicado:` clave/valor de taint.
+    - `uso=dedicado:` clave o valor de taint.
     - `NoSchedule:` ningún pod sin tolerancia podrá programarse en este nodo.
   {: .lab-note .info .compact}
 
@@ -360,7 +360,7 @@ Marcar (taint) un nodo para que no acepte pods normales y, luego, crear un pod c
   kubectl apply -f k8s/pod-tolerancia.yaml
   ```
 
-- **Paso 26.** Verifica que el pod corra en el nodo taintado
+- **Paso 26.** Verifica que el pod corra en el nodo taintado.
 
   > **Nota.** La columna `NODE` debe mostrar `multinodo-m03`.
   {: .lab-note .info .compact}
@@ -371,9 +371,9 @@ Marcar (taint) un nodo para que no acepte pods normales y, luego, crear un pod c
 
   ![micint]({{ page.images_base | relative_url }}/15.png)  
 
-- **Paso 27.** Verifica que otro **pod** sin tolerancia se queda en **Pending**
+- **Paso 27.** Verifica que otro **pod** sin tolerancia se queda en **Pending**.
 
-  > **Nota.** En este caso, el pod sin toleración fue asignado a `multinodo-02`. Pero dependiendo de la configuración verás un evento tipo **failedScheduling** con mensaje indicando que el nodo tiene taints no tolerados.
+  > **Nota.** En este caso, el pod sin tolerancia fue asignado a `multinodo-02`. Dependiendo de la configuración, verás un evento tipo **`failedScheduling`** con un mensaje indicando que el nodo tiene `taints` no tolerados.
   {: .lab-note .info .compact}
 
   ```bash
@@ -398,7 +398,7 @@ Hacer un deployment con réplicas que usen reglas de afinidad y tolerancia al mi
 
 #### Tarea 6.1
 
-- **Paso 28.** Aplica una etiquta más al nodo `multinode-m03` para la afinidad.
+- **Paso 28.** Aplica una etiqueta más al nodo `multinode-m03` para la afinidad.
 
   ```bash
   kubectl label nodes multinodo-m03 rol=dedicado --overwrite
@@ -406,7 +406,7 @@ Hacer un deployment con réplicas que usen reglas de afinidad y tolerancia al mi
 
   ![micint]({{ page.images_base | relative_url }}/17.png)  
 
-- **Paso 29.** Este es un resumen de las etiquetas (afinidad) y manchas(taints) que tienen los nodos actualmente.
+- **Paso 29.** Este es un resumen de las etiquetas (afinidad) y manchas (taints) que tienen los nodos actualmente.
 
   ```bash
   kubectl get nodes -l zona=primaria
@@ -430,7 +430,7 @@ Hacer un deployment con réplicas que usen reglas de afinidad y tolerancia al mi
 
   > **Notas**
     - `tolerations` permite entrar al nodo taintado.
-    - `nodeAffinity` (preferida) **asigna** los pods a nodos con `rol=dedicado` (tu **multinodo-m03**).
+    - `nodeAffinity` (preferida) **asigna** los pods a nodos con `rol=dedicado` (tu **`multinodo-m03`**).
     - `podAntiAffinity` (preferida) intenta que las réplicas no se apilen en el mismo `hostname`.
   {: .lab-note .info .compact}
 
@@ -499,7 +499,7 @@ Hacer un deployment con réplicas que usen reglas de afinidad y tolerancia al mi
 
   > **Notas** 
     - Verás **tres pods** distribuidos (idealmente no todos en el mismo hostname gracias a **podAntiAffinity**).
-    - Es probable que **al menos 1** caiga en `multinodo-m03` por la combinación de **toleration + nodeAffinity**.
+    - Es probable que **al menos uno** caiga en `multinodo-m03` por la combinación de **toleration + nodeAffinity**.
   {: .lab-note .info .compact}
 
   ```bash
