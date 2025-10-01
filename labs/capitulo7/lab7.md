@@ -1,6 +1,6 @@
 ---
 layout: lab
-title: "Práctica 7: Despliegue de servicios en Docker Swarm"
+title: "Práctica 7. Despliegue de servicios en Docker Swarm"
 permalink: /capitulo7/lab7/
 images_base: /labs/capitulo7/img
 duration: "60 minutos"
@@ -40,50 +40,50 @@ next: /capitulo8/lab8/
 
 ---
 
-### Tarea 1: Crear la estructura del proyecto
+### Tarea 1. Crear la estructura del proyecto
 
-Organizarás el proyecto en carpetas separando código de app, configuración y manifiestos/recursos auxiliares.
+Organizar el proyecto en carpetas separando código de app, configuración y manifiestos o recursos auxiliares.
 
 #### Tarea 1.1
 
 - **Paso 1.** Inicia sesión en tu máquina de trabajo como usuario con permisos administrativos.  
 
-- **Paso 2.** Abre el **`Visual Studio Code`** lo puedes encontrar en el **Escritorio** del ambiente o puedes buscarlo en las aplicaciones de Windows.
+- **Paso 2.** Abre el **`Visual Studio Code`**. Lo puedes encontrar en el **Escritorio** del ambiente o puedes buscarlo en las aplicaciones de Windows.
 
-- **Paso 3.** Una vez abierto **VSCode** da clic en el icono de la imagen para abrir la terminal, se encuentra en la parte superior derecha.
+- **Paso 3.** Una vez abierto **VS Code**, da clic en el icono de la imagen para abrir la terminal, se encuentra en la parte superior derecha.
 
   ![micint]({{ page.images_base | relative_url }}/1.png)
 
-- **Paso 4.** Usa la terminal de **`Git Bash`**, da clic como lo muestra la imagen.
+- **Paso 4.** Usa la terminal de **`Git Bash`**. Da clic como lo muestra la imagen.
 
   ![micint]({{ page.images_base | relative_url }}/2.png)
 
-- **Paso 5.** Asegurate de estar dentro de la carpeta del curso llamada **dockerlabs** en la terminal de **VSCode**:
+- **Paso 5.** Asegúrate de estar dentro de la carpeta del curso llamada **dockerlabs** en la terminal de **VS Code**.
 
-  > **NOTA:** Si te quedaste en el directorio de una práctica, usa **`cd ..`** para volver a la raíz de laboratorios.
+  > **Nota.** Si te quedaste en el directorio de una práctica, usa **`cd ..`** para volver a la raíz de laboratorios.
   {: .lab-note .info .compact}
 
   ![micint]({{ page.images_base | relative_url }}/3.png)
 
-- **Paso 6.** Crea el directorio para trabajar en la **práctica**:
+- **Paso 6.** Crea el directorio para trabajar en la **práctica**.
 
-  > **NOTA:** Aislar cada práctica evita colisiones de archivos y facilita montar rutas con precisión.
+  > **Nota.** Aislar cada práctica evita colisiones de archivos y facilita montar rutas con precisión.
   {: .lab-note .info .compact}
 
   ```bash
   mkdir lab7-dockerswarm && cd lab7-dockerswarm
   ```
 
-- **Paso 7.** Valida en el **Explorador** de archivos dentro de VSCode que se haya creado el directorio:
+- **Paso 7.** Valida en el **Explorador** de archivos dentro de VS Code que se haya creado el directorio.
 
-  > **NOTA:** Trabajar en VS Code permite editar y versionar cómodamente. **Git Bash** brinda compatibilidad con comandos POSIX.
+  > **Nota.** Trabajar en VS Code permite editar y versionar cómodamente. **Git Bash** brinda compatibilidad con comandos POSIX.
   {: .lab-note .info .compact}
 
   ![micint]({{ page.images_base | relative_url }}/4.png)
 
-- **Paso 8.** Esta sera la estructura de los directorios de la aplicación:
+- **Paso 8.** Esta será la estructura de los directorios de la aplicación.
 
-  > **NOTA:**  
+  > **Notas**  
   - `app/` contiene la aplicación. 
   - `secrets/` guardará el contenido que Swarm inyectará como **secret** al contenedor. 
   {: .lab-note .info .compact}
@@ -99,36 +99,36 @@ Organizarás el proyecto en carpetas separando código de app, configuración y 
   ├── .dockerignore
   ```
 
-- **Paso 9.** Ahora crea la carpeta **app/** y sus archivos vacios.
+- **Paso 9.** Ahora, crea la carpeta **app/** y sus archivos vacíos.
 
-  > **NOTA:** El comando se ejecuta desde la raíz de la carpeta **lab7-dockerswarm**.
+  > **Nota.** El comando se ejecuta desde la raíz de la carpeta **lab7-dockerswarm**.
   {: .lab-note .info .compact}
 
   ```bash
   mkdir -p app && touch app/package.json app/server.js
   ```
 
-- **Paso 10.** Muy bien continua la creación del directorio **secrets/** y el archivo `banner.txt`
+- **Paso 10.** Muy bien. Continúa la creación del directorio **secrets/** y el archivo `banner.txt`.
 
-  > **NOTA:** El comando se ejecuta desde la raíz de la carpeta **lab7-dockerswarm**.
+  > **Nota.** El comando se ejecuta desde la raíz de la carpeta **lab7-dockerswarm**.
   {: .lab-note .info .compact}
 
   ```bash
   mkdir -p secrets && touch secrets/banner.txt
   ```
 
-- **Paso 11.** Crea los ultimos dos archivos del proyecto **.dockerignore** y **Dockerfile**.
+- **Paso 11.** Crea los últimos dos archivos del proyecto **.dockerignore** y **Dockerfile**.
 
-  > **NOTA:** El comando se ejecuta desde la raíz de la carpeta **lab7-dockerswarm**.
+  > **Nota.** El comando se ejecuta desde la raíz de la carpeta **lab7-dockerswarm**.
   {: .lab-note .info .compact}
 
   ```bash
   touch .dockerignore Dockerfile
   ```
 
-- **Paso 12.** Agrega el siguiente contenido al archivo **.dockerignore** para construir imágenes limpias:
+- **Paso 12.** Agrega el siguiente contenido al archivo **.dockerignore** para construir imágenes limpias.
 
-  > **NOTA:** Reduce el **contexto de build** y acelera las compilaciones evitando subir archivos innecesarios al daemon de Docker.
+  > **Nota.** Reduce el **contexto de build** y acelera las compilaciones, evitando subir archivos innecesarios al daemon de Docker.
   {: .lab-note .info .compact}
 
   ```gitignore
@@ -145,9 +145,9 @@ Organizarás el proyecto en carpetas separando código de app, configuración y 
   .DS_Store
   ```
 
-- **Paso 13.** Valida la creacion de la estructura de tu proyecto, escribe el siguiente comando.
+- **Paso 13.** Valida la creación de la estructura de tu proyecto. Escribe el siguiente comando.
 
-  > **NOTA:** Recuerda que tambien puedes visualizarlos en el explorador de archivos de VSCode.
+  > **Nota.** Recuerda que también puedes visualizarlos en el explorador de archivos de VS Code.
   {: .lab-note .info .compact}
 
   ```bash
@@ -162,7 +162,7 @@ Organizarás el proyecto en carpetas separando código de app, configuración y 
 
 ---
 
-### Tarea 2: Implementar la aplicación Node.js con lectura de Secret
+### Tarea 2. Implementar la aplicación Node.js con lectura de Secret
 
 Harás una API mínima con Express que responde en `/` y `/health`. Incluirás un **secret** (`banner`) que se incrusta en la respuesta para demostrar el uso de **Docker Swarm Secrets**.
 
@@ -170,7 +170,7 @@ Harás una API mínima con Express que responde en `/` y `/health`. Incluirás u
 
 - **Paso 14.** Dentro del archivo `app/package.json` agrega las siguientes dependencias.
 
-  > **NOTA:** Dependencias mínimas para un servidor **HTTP** con Express.
+  > **Nota.** Dependencias mínimas para un servidor **HTTP** con Express.
   {: .lab-note .info .compact}
 
   ```json
@@ -183,11 +183,11 @@ Harás una API mínima con Express que responde en `/` y `/health`. Incluirás u
   }
   ```
 
-- **Paso 15.** Ahora en el archivo `app/server.js` inserta la siguiente logica de la aplicación.
+- **Paso 15.** Ahora, en el archivo `app/server.js`, inserta la siguiente lógica de la aplicación.
 
-  > **NOTA:** El endpoint `/` te mostrará el **hostname** del contenedor (para visualizar balanceo entre réplicas) y el **banner** (secret).
+  > **Nota.** El endpoint `/` te mostrará el **hostname** del contenedor (para visualizar el balanceo entre réplicas) y el **banner** (secret).
   {: .lab-note .info .compact}
-  > **IMPORTANTE:** Revisa que no haya errores de sintaxis en VS Code.
+  > **Importante.** Revisa que no haya errores de sintaxis en VS Code.
   {: .lab-note .important .compact}
   
   ```javascript
@@ -226,9 +226,9 @@ Harás una API mínima con Express que responde en `/` y `/health`. Incluirás u
 
 - **Paso 16.** En el archivo `secrets/banner.txt`.
 
-  > **NOTA:**
-  - Puedes dejar cualquier mensaje de notificación. **Como ejemplo el mensaje de abajo.**
-  - Este archivo será cargado como **secret** en el servicio Swarm y montado en `/run/secrets/banner`.
+  > **Notas**
+  - Puedes dejar cualquier mensaje de notificación. **Como ejemplo, el mensaje de abajo.**
+  - Este archivo se cargará como **secret** en el servicio Swarm y montado en `/run/secrets/banner`.
   {: .lab-note .info .compact}
 
   ```text
@@ -241,15 +241,15 @@ Harás una API mínima con Express que responde en `/` y `/health`. Incluirás u
 
 ---
 
-### Tarea 3: Dockerfile con Healthcheck y usuario no root
+### Tarea 3. Dockerfile con Healthcheck y usuario no root
 
 Definirás un Dockerfile optimizado con **usuario no root** y **HEALTHCHECK** para integrarlo con Swarm.
 
 #### Tarea 3.1
 
-- **Paso 17.** Ahora si, dentro del archivo `Dockerfile` en la raíz del directorio **lab7-...** agrega el siguiente contenido para compilar la imagen.
+- **Paso 17.** Ahora, dentro del archivo `Dockerfile` en la raíz del directorio **lab7-...**, agrega el siguiente contenido para compilar la imagen.
 
-  > **NOTA:** El `HEALTHCHECK` permite a Swarm detectar contenedores no saludables para reiniciarlos. `USER node` reduce superficie de riesgo.
+  > **Nota.** El `HEALTHCHECK` permite a Swarm detectar contenedores no saludables para reiniciarlos. `USER node` reduce superficie de riesgo.
   {: .lab-note .info .compact}
 
   ```dockerfile
@@ -284,7 +284,7 @@ Definirás un Dockerfile optimizado con **usuario no root** y **HEALTHCHECK** pa
 
 ---
 
-### Tarea 4: Construir imagen local
+### Tarea 4. Construir imagen local
 
 Compilarás la imagen del servicio web para usarla en Swarm.
 
@@ -292,7 +292,7 @@ Compilarás la imagen del servicio web para usarla en Swarm.
 
 - **Paso 18.** Compila la imagen, escribe el siguiente comando.
 
-  > **NOTA:** Recuerda que el comando se ejecuta en raíz de la carpeta **lab7...**
+  > **Nota.** Recuerda que el comando se ejecuta en raíz de la carpeta **lab7...**
   {: .lab-note .info .compact}  
 
   ```bash
@@ -301,12 +301,12 @@ Compilarás la imagen del servicio web para usarla en Swarm.
 
   ![micint]({{ page.images_base | relative_url }}/6.png)
 
-- **Paso 19.** Verificar que la imagen existe, escribe el siguiente comando en la terminal
+- **Paso 19.** Verifica que la imagen existe. Escribe el siguiente comando en la terminal.
 
-  > **NOTA:** Debes ver `swarm-web` con etiqueta `latest`
+  > **Nota.** Debes ver `swarm-web` con la etiqueta `latest`.
   {: .lab-note .info .compact}
 
-  > **IMPORTANTE:** En un entorno multinodo real, deberías **pushear** (subir) la imagen a un registry accesible por todos los nodos. En este laboratorio usaremos un **Swarm mononodo**, por lo que la imagen local es suficiente.
+  > **Importante.** En un entorno multinodo real, deberías **pushear** (subir) la imagen a un registry accesible por todos los nodos. En este laboratorio, usarás un **Swarm mononodo**, por lo que la imagen local es suficiente.
   {: .lab-note .important .compact}
 
   ```bash
@@ -321,15 +321,15 @@ Compilarás la imagen del servicio web para usarla en Swarm.
 
 ---
 
-### Tarea 5: Inicializar Docker Swarm y crear red overlay
+### Tarea 5. Inicializar Docker Swarm y crear red overlay
   
-Levantarás el **Swarm** y crearás una **red overlay** adjuntable que usarán tus servicios.
+Levantar el **Swarm** y crear una **red overlay** adjuntable que usarán tus servicios.
 
 #### Tarea 5.1
 
 - **Paso 20.** Inicializa el Swarm (mononodo).
 
-  > **NOTA:** Recuerda que el comando se ejecuta en raíz de la carpeta **lab7...**
+  > **Nota.** Recuerda que el comando se ejecuta en la raíz de la carpeta **lab7...**
   {: .lab-note .info .compact}    
 
   ```bash
@@ -338,9 +338,9 @@ Levantarás el **Swarm** y crearás una **red overlay** adjuntable que usarán t
 
   ![micint]({{ page.images_base | relative_url }}/8.png)
 
-- **Paso 21.** Valida que **Swarm** se haya inicializado correctamente, escribe el comando en la terminal.
+- **Paso 21.** Valida que **Swarm** se haya inicializado correctamente. Escribe el comando en la terminal.
 
-  > **NOTA:** Debe devolver: **active**
+  > **Nota.** Debe devolver: **active**.
   {: .lab-note .info .compact}
 
   {% raw %}
@@ -351,12 +351,12 @@ Levantarás el **Swarm** y crearás una **red overlay** adjuntable que usarán t
 
   ![micint]({{ page.images_base | relative_url }}/9.png)
 
-- **Paso 22.** Ahora verifica que el nodo este listo, escribe el siguiente comando.
+- **Paso 22.** Ahora, verifica que el nodo esté listo. Escribe el siguiente comando.
 
-  > **NOTA:** Debes ver tu nodo con **Leader** y **Ready**
+  > **Nota.** Debes ver tu nodo con **Leader** y **Ready**.
   {: .lab-note .info .compact}
 
-  > **IMPORTANTE:** Swarm **mononodo** es suficiente para practicar. El nodo actual será **manager**.
+  > **Importante.** Swarm **mononodo** es suficiente para practicar. El nodo actual será **manager**.
   {: .lab-note .important .compact}
 
   ```bash
@@ -367,7 +367,7 @@ Levantarás el **Swarm** y crearás una **red overlay** adjuntable que usarán t
 
 - **Paso 23.** Crea la red overlay adjuntable.
 
-  > **NOTA:** Las **redes overlay** permiten comunicación entre tareas de servicios en diferentes nodos (o en el mismo, como aquí), y el **DNS interno** de Swarm resuelve por nombre de servicio.
+  > **Nota.** Las **redes overlay** permiten la comunicación entre tareas de servicios en diferentes nodos (o en el mismo, como aquí) y el **DNS interno** de Swarm resuelve por nombre de servicio.
   {: .lab-note .info .compact}
 
   {% raw %}
@@ -386,9 +386,9 @@ Levantarás el **Swarm** y crearás una **red overlay** adjuntable que usarán t
 
   ![micint]({{ page.images_base | relative_url }}/12.png)  
 
-- **Paso 25.** Muy bien, con el siguiente comando verificaras que la red haya sido asociada.
+- **Paso 25.** Muy bien. Con el siguiente comando verifica que la red haya sido asociada.
 
-  > **NOTA:** Debe ser overlay / `attachable=true`
+  > **Nota.** Debe ser overlay / `attachable=true`
   {: .lab-note .info .compact}
 
   {% raw %}
@@ -405,13 +405,13 @@ Levantarás el **Swarm** y crearás una **red overlay** adjuntable que usarán t
 
 ---
 
-### Tarea 6: Crear Secret y desplegar servicio con réplicas
+### Tarea 6. Crear Secret y desplegar servicio con réplicas
  
-Subirás un **secret** a Swarm y crearás el servicio `web` con **3 réplicas**, publicando el puerto **8080 a 3000** mediante **ingress**.
+Subirás un **secret** a Swarm y crearás el servicio `web` con **tres réplicas**, publicando el puerto **8080 a 3000** mediante **ingress**.
 
 #### Tarea 6.1
 
-- **Paso 26** Crear el **secret** en el clúster de Swarm que apuntara al archivo **banner.txt**
+- **Paso 26** Crear el **secret** en el clúster de Swarm que apuntará al archivo **banner.txt**
 
   ```bash
   docker secret create banner ./secrets/banner.txt
@@ -419,12 +419,12 @@ Subirás un **secret** a Swarm y crearás el servicio `web` con **3 réplicas**,
 
   ![micint]({{ page.images_base | relative_url }}/14.png) 
 
-- **Paso 27** Verifica que el secreto este creado correctamente.
+- **Paso 27** Verifica que el secreto esté creado correctamente.
 
-  > **NOTA:** Debe listar `banner`
+  > **Nota.** Debe listar `banner`
   {: .lab-note .info .compact}
 
-  > **IMPORTANTE:** Swarm guarda el secret cifrado a nivel de raft; los contenedores lo verán montado en `/run/secrets/banner`.
+  > **Importante.** Swarm guarda el secret cifrado a nivel de raft; los contenedores lo verán montado en `/run/secrets/banner`.
   {: .lab-note .important .compact}
 
   ```bash
@@ -433,7 +433,7 @@ Subirás un **secret** a Swarm y crearás el servicio `web` con **3 réplicas**,
 
   ![micint]({{ page.images_base | relative_url }}/15.png) 
 
-- **Paso 28.** Crea el servicio `web` con 3 réplicas, escribe el siguiente comando en la terminal.
+- **Paso 28.** Crea el servicio `web` con tres réplicas. Escribe el siguiente comando en la terminal.
 
   ```bash
   docker service create \
@@ -447,7 +447,7 @@ Subirás un **secret** a Swarm y crearás el servicio `web` con **3 réplicas**,
 
   ![micint]({{ page.images_base | relative_url }}/16.png)
 
-- **Paso 29.** Verifica que las réplicas se hayan creado correctamente, escribe el siguiente.
+- **Paso 29.** Verifica que las réplicas se hayan creado correctamente. Escribe el siguiente.
 
   ```bash
   docker service ls
@@ -455,7 +455,7 @@ Subirás un **secret** a Swarm y crearás el servicio `web` con **3 réplicas**,
 
   ![micint]({{ page.images_base | relative_url }}/17.png)
 
-- **Paso 30.** Ahora revisa los 3 procesos individuales, ejecuta els iguiente comando.
+- **Paso 30.** Ahora, revisa los tres procesos individuales. Ejecuta el siguiente comando.
 
   ```bash
   docker service ps web
@@ -463,9 +463,9 @@ Subirás un **secret** a Swarm y crearás el servicio `web` con **3 réplicas**,
 
   ![micint]({{ page.images_base | relative_url }}/18.png)
 
-- **Paso 31.** Revisa tambien los detalles del **servicio swarm**.
+- **Paso 31.** Revisa también los detalles del **servicio swarm**.
 
-  > **NOTA:**
+  > **Notas**
   - `--publish ... mode=ingress` activa el **routing mesh**: cualquier nodo publicaría el puerto y distribuiría al backend.
   - `--secret` monta el archivo como **solo lectura** dentro del contenedor.
   {: .lab-note .info .compact}
@@ -478,10 +478,10 @@ Subirás un **secret** a Swarm y crearás el servicio `web` con **3 réplicas**,
 
 - **Paso 32.** Para probar el balanceo vía puerto publicado de host a servicio, escribe el siguiente comando.
 
-  > **NOTA:** El **hostname** cambia entre réplicas y evidencia de **balanceo de carga**.
+  > **Nota.** El **hostname** cambia entre réplicas y evidencia de **balanceo de carga**.
   {: .lab-note .info .compact}
 
-  > **IMPORTANTE:** Observa el campo `host:` debe alternar entre réplicas
+  > **Importante.** Observa el campo `host:`. Debe alternar entre réplicas.
   {: .lab-note .important .compact}
 
   ```bash
@@ -492,7 +492,7 @@ Subirás un **secret** a Swarm y crearás el servicio `web` con **3 réplicas**,
 
 - **Paso 33.** Para probar la resolución **DNS interna** (cliente en la red overlay), escribe el siguiente comando.
 
-  > **NOTA:** Dentro de la red `appnet`, el **nombre del servicio** `web` resuelve a las tareas mediante el DNS de Swarm.
+  > **Nota.** Dentro de la red `appnet`, el **nombre del servicio** `web` resuelve las tareas mediante el DNS de Swarm.
   {: .lab-note .info .compact}
 
   ```bash
@@ -508,15 +508,15 @@ Subirás un **secret** a Swarm y crearás el servicio `web` con **3 réplicas**,
 
 ---
 
-### Tarea 7: Rolling update de la imagen (latest(1.0) a 1.1) con control de actualización
+### Tarea 7. Rolling update de la imagen (latest(1.0) a 1.1) con control de actualización
 
-Simularás una nueva versión de la app y realizarás un **rolling update** con **paralelismo** y **delay** para minimizar riesgos.
+Simular una nueva versión de la app y realizar un **rolling update** con **paralelismo** y **delay** para minimizar riesgos.
 
 #### Tarea 7.1
 
 - **Paso 34.** Abre y cambia la versión en el archivo `Dockerfile`.
 
-  > **NOTA:** El cambio se encuentra aproximadamente en la **linea 12** del archivo **Dockerfile**. 
+  > **Nota.** El cambio se encuentra aproximadamente en la **línea 12** del archivo **Dockerfile**. 
   {: .lab-note .info .compact}
 
   ```dockerfile
@@ -525,23 +525,23 @@ Simularás una nueva versión de la app y realizarás un **rolling update** con 
 
   ![micint]({{ page.images_base | relative_url }}/22.png)
 
-- **Paso 35.** Ahora Cambia el mensaje de la respuesta en el archivo `server.js` (el texto de `msg`).
+- **Paso 35.** Ahora, cambia el mensaje de la respuesta en el archivo `server.js` (el texto de `msg`).
 
-  > **NOTA:** Puedes usar un mensaje personalizado, o colocar el del ejemplo. **Linea 22** del archivo aproximadamente.
+  > **Nota.** Puedes usar un mensaje personalizado o colocar el del ejemplo. **Línea 22** del archivo, aproximadamente.
   {: .lab-note .info .compact}
 
-    > **IMPORTANTE:** Verifica la indentación del archivo despuesde modificar la linea del mensaje.
+    > **Importante.** Verifica la indentación del archivo después de modificar la línea del mensaje.
   {: .lab-note .important .compact}
 
   ```dockerfile
-      msg: '¡Disfruta de las pequeñas cosas!',
+      msg: '¡Disfruta de las pequeñas cosas!'
   ```
 
   ![micint]({{ page.images_base | relative_url }}/23.png)
 
-- **Paso 36.** Ahora reconstruye la imagen para reflejar los cambios de la aplicación.
+- **Paso 36.** Ahora, reconstruye la imagen para reflejar los cambios de la aplicación.
 
-  > **NOTA:** El comando se ejecuta en la raíz del directorio **lab7-...**
+  > **Nota.** El comando se ejecuta en la raíz del directorio **lab7-...**
   {: .lab-note .info .compact}
 
   ```bash
@@ -558,9 +558,9 @@ Simularás una nueva versión de la app y realizarás un **rolling update** con 
 
 - **Paso 38.** Actualiza el servicio con el comando **update** .
 
-  > **NOTA:** 
+  > **Notas** 
   - `--update-parallelism 1`: actualiza **una réplica a la vez**.  
-  - `--update-delay 5s`: espera 5s entre réplicas.  
+  - `--update-delay 5s`: espera cinco segundos entre réplicas.  
   - `--update-failure-action pause`: si algo falla, **pausa** la actualización.
   {: .lab-note .info .compact}
 
@@ -576,9 +576,9 @@ Simularás una nueva versión de la app y realizarás un **rolling update** con 
 
   ![micint]({{ page.images_base | relative_url }}/25.png)
 
-- **Paso 39.** Verifica que la versión nueva este atendiendo el tráfico.
+- **Paso 39.** Verifica que la versión nueva esté atendiendo el tráfico.
 
-  > **NOTA:** Debes ver `1.1` (una vez finalizada la actualización) y el nuevo `mensaje` que cambiaste.
+  > **Nota.** Debes ver `1.1` (una vez finalizada la actualización) y el nuevo `mensaje` que cambiaste.
   {: .lab-note .info .compact}
 
   ```bash
@@ -593,15 +593,15 @@ Simularás una nueva versión de la app y realizarás un **rolling update** con 
 
 ---
 
-### Tarea 8: Escalar el servicio y observar distribución
+### Tarea 8. Escalar el servicio y observar la distribución
 
-Aumentarás el número de réplicas para manejar mayor carga y verificarás la distribución de tareas.
+Aumentar el número de réplicas para manejar mayor carga y verificar la distribución de tareas.
 
 #### Tarea 8.1
 
-- **Paso 40.** Escribe el siguiente comando para escalar facilmente a 5 réplicas.
+- **Paso 40.** Escribe el siguiente comando para escalar fácilmente a cinco réplicas.
 
-  > **NOTA:** Recuerda que ya teniamos **3 réplicas** solo se agregaran **2 réplicas** para el total de **5 réplicas**
+  > **Nota.** Recuerda que ya tenías **tres réplicas** solo se agregarán **dos réplicas** para el total de **cinco réplicas**.
   {: .lab-note .info .compact}
 
   ```bash
@@ -610,9 +610,9 @@ Aumentarás el número de réplicas para manejar mayor carga y verificarás la d
 
   ![micint]({{ page.images_base | relative_url }}/27.png)
 
-- **Paso 41.** Revisa el estado y prueba tráfico ahora con las replicas escaladas.
+- **Paso 41.** Revisa el estado y prueba el tráfico ahora con las réplicas escaladas.
 
-  > **NOTA:** En un Swarm multinodo, verías tareas distribuidas en varios nodos. Aquí, todas residirán en el mismo (mononodo), pero el **balanceo** sigue activo.
+  > **Nota.** En un Swarm multinodo, verías tareas distribuidas en varios nodos. Aquí, todas residirán en el mismo (mononodo), pero el **balanceo** sigue activo.
   {: .lab-note .info .compact}
 
   ```bash
@@ -631,13 +631,13 @@ Aumentarás el número de réplicas para manejar mayor carga y verificarás la d
 
 ---
 
-### Tarea 9: Diagnóstico y logs
+### Tarea 9. Diagnóstico y logs
   
-Revisarás eventos del servicio y logs de tareas para entender el ciclo de vida y facilitar troubleshooting.
+Revisar eventos del servicio y logs de tareas para entender el ciclo de vida y facilitar el troubleshooting.
 
 #### Tarea 9.1
 
-- **Paso 42.** Inspeccionar detalle del servicio aplicado despueste la actualización.
+- **Paso 42.** Inspecciona el detalle del servicio aplicado, después de la actualización.
 
   ```bash
   docker service inspect web | jq '.[0].Spec.UpdateConfig'
@@ -645,7 +645,7 @@ Revisarás eventos del servicio y logs de tareas para entender el ciclo de vida 
 
   ![micint]({{ page.images_base | relative_url }}/29.png)
 
-- **Paso 43.** EScribe los siguientes comandos para que puedas ver los logs de una tarea concreta de swarm asociada al cotainer id.
+- **Paso 43.** Escribe los siguientes comandos para que puedas ver los logs de una tarea concreta de swarm asociada al Container ID.
 
   {% raw %}
   ```bash
@@ -659,7 +659,7 @@ Revisarás eventos del servicio y logs de tareas para entender el ciclo de vida 
 
   ![micint]({{ page.images_base | relative_url }}/30.png)
 
-- **Paso 44.** La terminal se quedara ocupada con el comando de los logs, ejecuta **`CTRL + c`** para romper el proceso.
+- **Paso 44.** La terminal se quedará ocupada con el comando de los logs. Ejecuta **`CTRL + c`** para romper el proceso.
 
 {% assign results = site.data.task-results[page.slug].results %}
 {% capture r1 %}{{ results[8] }}{% endcapture %}
@@ -667,13 +667,13 @@ Revisarás eventos del servicio y logs de tareas para entender el ciclo de vida 
 
 ---
 
-### Tarea 10: Limpieza de recursos
+### Tarea 10. Limpieza de recursos
 
-Eliminarás servicios, secretos y redes, y saldrás del Swarm para dejar el host limpio.
+Eliminar servicios, secretos y redes; además, salir del Swarm para dejar el host limpio.
 
 #### Tarea 10.1
 
-- **Paso 45.** Eliminar servicio y secret.
+- **Paso 45.** Elimina el servicio y el secret.
 
   ```bash
   docker service rm web
@@ -682,13 +682,13 @@ Eliminarás servicios, secretos y redes, y saldrás del Swarm para dejar el host
 
   ![micint]({{ page.images_base | relative_url }}/31.png)
 
-- **Paso 46.** Eliminar red overlay.
+- **Paso 46.** Elimina el red overlay.
 
   ```bash
   docker network rm appnet
   ```
 
-- **Paso 47.** Salir del Swarm.
+- **Paso 47.** Sal del Swarm.
 
   ```bash
   docker swarm leave --force
@@ -696,9 +696,9 @@ Eliminarás servicios, secretos y redes, y saldrás del Swarm para dejar el host
 
   ![micint]({{ page.images_base | relative_url }}/32.png)
 
-- **Paso 48.** Confirmar limpieza.
+- **Paso 48.** Confirma la limpieza.
 
-  > **NOTA:** Cerrar y limpiar te deja listo para próximas prácticas sin interferencias.
+  > **Nota.** Cerrar y limpiar te deja listo para próximas prácticas sin interferencias.
   {: .lab-note .info .compact}
 
   {% raw %}
