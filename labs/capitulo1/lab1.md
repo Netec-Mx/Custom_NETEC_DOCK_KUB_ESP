@@ -1,6 +1,6 @@
 ---
 layout: lab
-title: "Práctica 1: Despliegue de una aplicación Node.js simple con Docker"
+title: "Práctica 1. Despliegue de una aplicación Node.js simple con Docker"
 permalink: /capitulo1/lab1/
 images_base: /labs/capitulo1/img
 duration: "60 minutos"
@@ -39,7 +39,7 @@ next: /capitulo2/lab2/
 
 ---
 
-### Tarea 1: Preparar el entorno de trabajo
+### Tarea 1. Preparar el entorno de trabajo
 
 Configurar la estructura de carpetas y archivos del proyecto para mantener una buena organización desde el inicio.
 
@@ -57,7 +57,7 @@ Configurar la estructura de carpetas y archivos del proyecto para mantener una b
 
 - **Paso 5.** Verifica que **Docker** esté instalado.
   
-  > **NOTA:** Copia y pega el siguiente comando en la terminal. **La versión puede variar.**
+  > **Nota.** Copia y pega el siguiente comando en la terminal. **La versión puede variar.**
   {: .lab-note .info .compact}
   
   ```bash
@@ -65,7 +65,7 @@ Configurar la estructura de carpetas y archivos del proyecto para mantener una b
   ```
   ![micint]({{ page.images_base | relative_url }}/3.png)
 
-- **Paso 6.** Verifica **Node.js** y **npm**:
+- **Paso 6.** Verifica **Node.js** y **npm**.
 
   ```bash
   node -v
@@ -77,16 +77,16 @@ Configurar la estructura de carpetas y archivos del proyecto para mantener una b
   ```
   ![micint]({{ page.images_base | relative_url }}/6.png)
 
-- **Paso 7.** Crea la estructura base del directorio del curso en el **Escritorio** del equipo asignado:
+- **Paso 7.** Crea la estructura base del directorio del curso en el **Escritorio** del equipo asignado.
 
-  > **IMPORTANTE:** Si es necesario, ajusta manualmente las rutas en la terminal para crear la estructura de directorios.
+  > **Importante.** Si es necesario, ajusta manualmente las rutas en la terminal para crear la estructura de directorios.
   {: .lab-note .important .compact}
 
   - Entra al directorio **Desktop**.
   - Crea un directorio llamado `dockerlabs`.
   - Crea el subdirectorio `lab1-acontactos`.
   - Dentro, crea los directorios `frontend` y `backend`.
-  - Puedes ejecutar lo siguiente para crearlo todo:
+  - Puedes ejecutar lo siguiente para crearlo todo.
 
   ```bash
   cd Desktop/
@@ -95,7 +95,7 @@ Configurar la estructura de carpetas y archivos del proyecto para mantener una b
   mkdir frontend backend
   ```
 
-- **Paso 8.** Verifica la estructura con el siguiente comando:
+- **Paso 8.** Verifica la estructura con el siguiente comando.
 
   ```bash
   ls -la -R
@@ -115,7 +115,7 @@ Configurar la estructura de carpetas y archivos del proyecto para mantener una b
 
 - **Paso 11.** Navega al directorio **dockerlabs** (en el Escritorio) y da clic en **Select Folder**.
 
-  > **NOTA:** Si aparece la ventana emergente, selecciona **Yes, I trust the authors**.
+  > **Nota.** Si aparece la ventana emergente, selecciona **Yes, I trust the authors**.
   {: .lab-note .info .compact}
   ![micint]({{ page.images_base | relative_url }}/10.png)
 
@@ -128,15 +128,15 @@ Configurar la estructura de carpetas y archivos del proyecto para mantener una b
 
 ---
 
-### Tarea 2: Crear el backend en Node.js
+### Tarea 2. Crear el backend en Node.js
 
-Implementar un servidor **Express** que maneje rutas para agregar, listar, actualizar y borrar contactos, **y que sirva el frontend**.
+Implementar un servidor **Express** que maneje rutas para agregar, listar, actualizar y borrar contactos **y que sirva el frontend**.
 
 #### Tarea 2.1
 
 - **Paso 13.** Asegúrate de estar dentro de la carpeta **backend**.
 
-  > **NOTA:** Abre la **Terminal** desde la esquina superior derecha y navega al directorio desde la terminal.
+  > **Nota.** Abre la **Terminal** desde la esquina superior derecha y navega al directorio desde la terminal.
   {: .lab-note .info .compact}
 
   ```bash
@@ -146,7 +146,7 @@ Implementar un servidor **Express** que maneje rutas para agregar, listar, actua
 
 - **Paso 14.** Inicializa un proyecto de **Node.js** en la carpeta `backend` e instala **Express**:
 
-  > **NOTA:** Verifica que el directorio actual sea **backend**.
+  > **Nota.** Verifica que el directorio actual sea **backend**.
   {: .lab-note .info .compact} 
 
   ```bash
@@ -155,7 +155,7 @@ Implementar un servidor **Express** que maneje rutas para agregar, listar, actua
   ```
   ![micint]({{ page.images_base | relative_url }}/13.png)
 
-- **Paso 15.** Crea el archivo `server.js` dentro de **backend**:
+- **Paso 15.** Crea el archivo `server.js` dentro de **backend**.
 
   ```bash
   touch server.js
@@ -164,7 +164,7 @@ Implementar un servidor **Express** que maneje rutas para agregar, listar, actua
 
 - **Paso 16.** Agrega el siguiente contenido al archivo **`server.js`**.
 
-  > **NOTA:** Puedes copiar y pegar. **Express** permite crear APIs REST de forma rápida y sencilla, ideal para microservicios ligeros.
+  > **Nota.** Puedes copiar y pegar. **Express** permite crear API REST de forma rápida y sencilla, ideal para microservicios ligeros.
   {: .lab-note .info .compact}
 
   - **Servidor Express** ejecutándose en el puerto **3000**.  
@@ -239,9 +239,9 @@ Implementar un servidor **Express** que maneje rutas para agregar, listar, actua
   });
   ```
 
-- **Paso 17.** Valida la ejecución del servidor. Ejecuta el siguiente comando en la terminal dentro del directorio **backend**
+- **Paso 17.** Valida la ejecución del servidor. Ejecuta el siguiente comando en la terminal dentro del directorio **backend**.
 
-  > **NOTA:** **Acepta** los permisos si aparece una ventana emergente.
+  > **Nota.** **Acepta** los permisos si aparece una ventana emergente.
   {: .lab-note .info .compact}
 
   ```bash
@@ -260,13 +260,13 @@ Implementar un servidor **Express** que maneje rutas para agregar, listar, actua
   ```
   ![micint]({{ page.images_base | relative_url }}/15.png)
 
-- **Paso 20.** Abre el siguiente endpoint en una pestaña del navegador (Google Chrome):
+- **Paso 20.** Abre el siguiente endpoint en una pestaña de Google Chrome.
 
   ```
   http://localhost:3000/contactos
   ```
 
-- **Paso 21.** Como resultado deberas ver un JSON con el contacto registrado.
+- **Paso 21.** Como resultado, deberás ver un JSON con el contacto registrado.
 
   ![micint]({{ page.images_base | relative_url }}/16.png)
 
@@ -278,7 +278,7 @@ Implementar un servidor **Express** que maneje rutas para agregar, listar, actua
 
 ---
 
-### Tarea 3: Crear el frontend
+### Tarea 3. Crear el frontend
 
 Construir una página **HTML/CSS/JS** que interactúe con el backend para agregar y mostrar contactos.
 
@@ -286,7 +286,7 @@ Construir una página **HTML/CSS/JS** que interactúe con el backend para agrega
 
 - **Paso 23.** En la carpeta `frontend`, crea los archivos base y abre `index.html`:
 
-  > **NOTA:** Si estás en **backend**, sube un nivel antes de entrar a **frontend**.
+  > **Nota.** Si estás en **backend**, sube un nivel antes de entrar a **frontend**.
   {: .lab-note .info .compact}
 
   ```bash
@@ -297,7 +297,7 @@ Construir una página **HTML/CSS/JS** que interactúe con el backend para agrega
 
 - **Paso 24.** Copia y pega el siguiente código **HTML** dentro de `index.html`.
 
-  > **NOTA:** El **frontend** se comunica con el **backend** usando **fetch**, simulando el consumo de una API REST.
+  > **Nota.** El **frontend** se comunica con el **backend** usando **fetch**, simulando el consumo de una API REST.
   {: .lab-note .info .compact}
 
   - **Título**: "Agenda de Contactos".  
@@ -347,7 +347,7 @@ Construir una página **HTML/CSS/JS** que interactúe con el backend para agrega
   code style.css
   ```
 
-- **Paso 26.** Copia y pega el siguiente código en **style.css**:
+- **Paso 26.** Copia y pega el siguiente código en **style.css**.
 
   ```css
   /* Estilos generales */
@@ -427,19 +427,19 @@ Construir una página **HTML/CSS/JS** que interactúe con el backend para agrega
   }
   ```
 
-- **Paso 27.** Crea el archivo **app.js** dentro de **frontend**:
+- **Paso 27.** Crea el archivo **app.js** dentro de **frontend**.
 
   ```bash
   touch app.js
   code app.js
   ```
 
-- **Paso 28.** Copia y pega el siguiente código dentro de **app.js**:
+- **Paso 28.** Copia y pega el siguiente código dentro de **app.js**.
 
-  > **NOTA:**
+  > **Notas**
   - **Carga inicial**: obtiene `/contactos` y pinta filas en la tabla.
   - **Render seguro**: usa `escapeHtml` para evitar inyección al mostrar nombre/teléfono.
-  - **Delegación de eventos**: botones **Editar**/**Borrar** se enlazan tras renderizar.
+  - **Delegación de eventos**: los botones **Editar**/**Borrar** se enlazan tras renderizar.
   - **Crear/Actualizar**: en `submit`, valida campos y hace `POST` o `PUT` según haya `id`.
   - **Modo edición**: `activarEdicion()` llena el formulario y cambia el botón a **Actualizar**.
   - **Borrado**: `borrarContacto()` confirma y hace `DELETE`, luego recarga la lista.
@@ -564,7 +564,7 @@ Construir una página **HTML/CSS/JS** que interactúe con el backend para agrega
 
 ---
 
-### Tarea 4: Crear el Dockerfile 
+### Tarea 4. Crear el Dockerfile 
 
 Contenerizar la aplicación en una imagen **Docker**.
 
@@ -572,7 +572,7 @@ Contenerizar la aplicación en una imagen **Docker**.
 
 - **Paso 29.** Crea el archivo **Dockerfile** en el directorio **lab1-acontactos**.
 
-  > **NOTA:** Si te encuentras en **frontend**, sube un nivel antes de crear el archivo. Ajusta las rutas si es necesario.
+  > **Nota.** Si te encuentras en **frontend**, sube un nivel antes de crear el archivo. Ajusta las rutas si es necesario.
   {: .lab-note .info .compact}
 
   ```bash
@@ -581,7 +581,7 @@ Contenerizar la aplicación en una imagen **Docker**.
   code Dockerfile
   ```
 
-- **Paso 30.** Copia y pega el siguiente contenido en el **Dockerfile**:
+- **Paso 30.** Copia y pega el siguiente contenido en el **Dockerfile**.
 
   - **Imagen base**: usa `node:20-alpine` (ligera y optimizada).  
   - **Directorio de trabajo**: establece `/app`.  
@@ -609,9 +609,9 @@ Contenerizar la aplicación en una imagen **Docker**.
   CMD ["node", "backend/server.js"]
   ```
 
-- **Paso 31.** Construye la imagen **Docker**:
+- **Paso 31.** Construye la imagen **Docker**.
 
-  > **NOTA:** El comando se ejecuta en el directorio raíz **lab1-acontactos**. La salida puede ser extensa.
+  > **Nota.** El comando se ejecuta en el directorio raíz **lab1-acontactos**. La salida puede ser extensa.
   {: .lab-note .info .compact}
 
   ```bash
@@ -619,9 +619,9 @@ Contenerizar la aplicación en una imagen **Docker**.
   ```
   ![micint]({{ page.images_base | relative_url }}/17.png)
 
-- **Paso 32.** Verifica la imagen creada:
+- **Paso 32.** Verifica la imagen creada.
 
-  > **NOTA:** Puedes ignorar otras imágenes, se usarán en laboratorios posteriores.
+  > **Nota.** Puedes ignorar otras imágenes, se usarán en laboratorios posteriores.
   {: .lab-note .info .compact}
 
   ```bash
@@ -629,9 +629,9 @@ Contenerizar la aplicación en una imagen **Docker**.
   ```
   ![micint]({{ page.images_base | relative_url }}/18.png)
 
-- **Paso 33.** Ejecuta el contenedor a partir de la imagen:
+- **Paso 33.** Ejecuta el contenedor a partir de la imagen.
 
-  > **NOTA:** Si aparece una ventana emergente de permisos, **permite** la ejecución.
+  > **Nota.** Si aparece una ventana emergente de permisos, **permite** la ejecución.
   {: .lab-note .info .compact}
 
   ```bash
@@ -639,14 +639,14 @@ Contenerizar la aplicación en una imagen **Docker**.
   ```
   ![micint]({{ page.images_base | relative_url }}/19.png)
 
-- **Paso 34.** Verifica que el contenedor esté en ejecución:
+- **Paso 34.** Verifica que el contenedor esté en ejecución.
 
   ```bash
   docker ps
   ```
   ![micint]({{ page.images_base | relative_url }}/20.png)
 
-- **Paso 35.** Abre una ventana de Google Chrome y accede a la aplicación:
+- **Paso 35.** Abre una ventana de Google Chrome y accede a la aplicación.
 
   ```
   http://localhost:3000
@@ -676,7 +676,7 @@ Contenerizar la aplicación en una imagen **Docker**.
 
   ![micint]({{ page.images_base | relative_url }}/22.png)
 
-- **Paso 37.** Cuando termines de interactuar con la **Agenda de Contactos**, detén el contenedor:
+- **Paso 37.** Cuando termines de interactuar con la **Agenda de Contactos**, detén el contenedor.
 
   ```bash
   docker stop agenda
