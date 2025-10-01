@@ -74,8 +74,7 @@ Organizar los manifiestos YAML de RBAC en una carpeta dedicada.
 
 - **Paso 6.** Crea el directorio para trabajar en la **práctica**.
 
-  > **Notas**
-  - Aislar cada práctica evita colisiones de archivos y facilita montar rutas con precisión.
+  > **Nota.** Aislar cada práctica evita colisiones de archivos y facilita montar rutas con precisión.
   {: .lab-note .info .compact}
 
   ```bash
